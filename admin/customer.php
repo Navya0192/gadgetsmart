@@ -1,14 +1,22 @@
-<!--
-=========================================================
-Material Dashboard - v2.1.2
-=========================================================
 
-Product Page: https://www.creative-tim.com/product/material-dashboard
-Copyright 2020 Creative Tim (https://www.creative-tim.com)
-Coded by Creative Tim
+<?php
+session_start();
 
-=========================================================
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+
+// destroying session
+// $_SESSION = array();
+// if (ini_get("session.use_cookies")) {
+//     $params = session_get_cookie_params();
+//     setcookie(session_name(), '', time() - 42000,
+//         $params["path"], $params["domain"],
+//         $params["secure"], $params["httponly"]
+//     );
+// }
+// session_destroy();
+// destroying ends
+
+if(isset($_SESSION['uname'])){
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -224,23 +232,29 @@ The above copyright notice and this permission notice shall be included in all c
                         </th>
                       </thead>
                       <tbody>
-                        <tr>
+                        <?php
+                        include('db.php');
+                        $query = "SELECT * FROM `customer_master` WHERE 1";
+                        $result = mysqli_query($con,$query);
+                        while($row = mysqli_fetch_assoc($result)){
+                          ?>
+                          <tr>
                           <td>
-                            c7d585ce-b96c-11eb-b442-b4b686bcfe93
+                            <?php echo $row['CUID'] ?>
                           </td>
                           <td>
-                            Navya
+                          <?php echo $row['Name'] ?>
                           </td>
                           <td>
-                            +91 45632734890
+                            +91 <?php echo $row['Mobile'] ?>
                           </td>
                           <td>
-                            xyz@xyz.com
+                          <?php echo $row['email'] ?>
                           </td>
                           <td>
-                            <button type="btn" class="btn btn-outline-primary btn-sm btn-block" data-toggle="modal" data-target="#exampleModal1"><b>Details</b></button>
+                            <button type="btn" class="btn btn-outline-primary btn-sm btn-block" data-toggle="modal" data-target="#modal-<?php echo $row['CUID'] ?>"><b>Details</b></button>
                           </td>
-                          <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
+                          <div class="modal fade" id="modal-<?php echo $row['CUID'] ?>" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                               <div class="modal-content">
@@ -251,7 +265,7 @@ The above copyright notice and this permission notice shall be included in all c
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  Name : navya
+                                  Name : <?php echo $row['Name'] ?>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -261,145 +275,16 @@ The above copyright notice and this permission notice shall be included in all c
                             </div>
                           </div>
                         </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Minerva Hooper
-                          </td>
-                          <td>
-                            Curaçao
-                          </td>
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-primary">
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            c7d585ce-b96c-11eb-b442-b4b686bcfe93
-                          </td>
-                          <td>
-                            Prathamesh
-                          </td>
-                          <td>
-                            +91 45632734890
-                          </td>
-                          <td>
-                            xyz@xyz.com
-                          </td>
-                          <td>
-                            <button type="btn" class="btn btn-outline-primary btn-sm btn-block" data-toggle="modal" data-target="#exampleModal"><b>Details</b></button>
-                          </td>
-                          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                  Name : prathamesh
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Minerva Hooper
-                          </td>
-                          <td>
-                            Curaçao
-                          </td>
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-primary">
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                          <td>
-                            Baileux
-                          </td>
-                          <td class="text-primary">
-                            $56,142
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          <td>
-                            Korea, South
-                          </td>
-                          <td>
-                            Overland Park
-                          </td>
-                          <td class="text-primary">
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Doris Greene
-                          </td>
-                          <td>
-                            Malawi
-                          </td>
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td class="text-primary">
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            Mason Porter
-                          </td>
-                          <td>
-                            Chile
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td class="text-primary">
-                            $78,615
-                          </td>
-                        </tr>
+                          <?php
+                        }
+                        if(mysqli_num_rows($result) == 0){
+                          ?>
+                          <tr>
+                            <td colspan="5" style="text-align: center;">No registered customer found</td>
+                          </tr>
+                          <?php
+                        }
+                        ?>
                       </tbody>
                     </table>
                   </div>
@@ -410,41 +295,7 @@ The above copyright notice and this permission notice shall be included in all c
         </div>
         
       </div>
-      <footer class="footer">
-        <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            <script>
-              document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-          </div>
-        </div>
-      </footer>
+      <?php include('components/footer.php') ?>
     </div>
   </div>
   
@@ -672,3 +523,8 @@ The above copyright notice and this permission notice shall be included in all c
 </body>
 
 </html>
+<?php
+}else{
+  header("location:db.php?invalid=0");
+}
+?>
