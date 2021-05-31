@@ -1,21 +1,41 @@
-
 <?php
-session_start();
 
+if (isset($_POST['submit'])) {
+  $pname = $_POST['pname'];
+  $pprice = $_POST['pprice'];
+  $pquantity = $_POST['pquantity'];
+  $ptype = $_POST['ptype'];
+  $pcompany = $_POST['pcompany'];
 
-// destroying session
-// $_SESSION = array();
-// if (ini_get("session.use_cookies")) {
-//     $params = session_get_cookie_params();
-//     setcookie(session_name(), '', time() - 42000,
-//         $params["path"], $params["domain"],
-//         $params["secure"], $params["httponly"]
-//     );
-// }
-// session_destroy();
-// destroying ends
+  $name = $_FILES['file']['name'];
+  $name1 = "ProductImg/" . $name . "";
+  $target_dir = "ProductImg/";
+  $target_file = $target_dir . basename($_FILES["file"]["name"]);
+  $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+  $extensions_arr = array("jpg", "jpeg", "png", "gif");
+  $filessize = 400000;  //this is in bytes convert before
 
-if(isset($_SESSION['uname'])){
+  if ($_FILES['file']['size'] <= $filessize) {
+    if (in_array($imageFileType, $extensions_arr)) {
+      if (move_uploaded_file($_FILES['file']['tmp_name'], $target_dir . $name)) {
+        include('db.php');
+        $sql22 = "INSERT INTO `stock_master`(`PUID`, `Name`, `Imagepath`, `price`, `type`, `quantity`, `companyid`) 
+        VALUES (UUID(),'" . $pname . "','" . $name1 . "','" . $pprice . "','" . $ptype . "','" . $pquantity . "','" . $pcompany . "')";
+        if (mysqli_query($con, $sql22)) {
+          header("location:stocks.php?success=0");
+        }
+        else{
+          header("location:stocks.php?failed=0");
+        }
+      }
+    } else {
+      header("location:stocks.php?EImgExt=0");
+    }
+  } else {
+    header("location:stocks.php?EImgSize=0");
+  }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,16 +50,12 @@ if(isset($_SESSION['uname'])){
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css"
-    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="  assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="  assets/demo/demo.css" rel="stylesheet" />
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Recursive:wght@700&display=swap" rel="stylesheet"> 
 </head>
 
 <body class="">
@@ -61,14 +77,14 @@ if(isset($_SESSION['uname'])){
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item active  ">
-            <a class="nav-link" href="customer.html">
+          <li class="nav-item  ">
+            <a class="nav-link" href="customer.php">
               <i class="material-icons">account_box</i>
               <p>Customer</p>
             </a>
           </li>
-          <li class="nav-item   ">
-            <a class="nav-link" href="stocks.php">
+          <li class="nav-item  active  ">
+            <a class="nav-link" href="stocks.html">
               <i class="material-icons">loyalty</i>
               <p>Stock</p>
             </a>
@@ -141,10 +157,9 @@ if(isset($_SESSION['uname'])){
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:;" style="font-family: Recursive;font-size: larger;">Customer Details</a>
+            <a class="navbar-brand" href="javascript:;">Dashboard</a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
-            aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
@@ -170,8 +185,7 @@ if(isset($_SESSION['uname'])){
                 </a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">notifications</i>
                   <span class="notification">5</span>
                   <p class="d-lg-none d-md-block">
@@ -187,8 +201,7 @@ if(isset($_SESSION['uname'])){
                 </div>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
@@ -208,6 +221,151 @@ if(isset($_SESSION['uname'])){
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
+          <?php
+          if (isset($_GET['success'])) {
+          ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Stock successfully added !</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
+          <?php
+          if (isset($_GET['failed'])) {
+          ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Due to some error stock was not added, <br>Kindly try again later !</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
+          <?php
+          if (isset($_GET['EImgExt'])) {
+          ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Image extension wasd not correct,<br> Please .jpg, .jpeg, .png</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
+          <?php
+          if (isset($_GET['EImgSize'])) {
+          ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Image size is more than require size,<br>Maximum image size should be : 400kb</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
+          <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+              <div class="card h-100">
+                <div class="card-body">
+                  <button class="btn-outline-dark btn-sm" style="float: right;" data-toggle="modal" data-target="#AddStock">+ Add New Stock</button>
+                  <div class="modal fade" id="AddStock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog " role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Add new stock</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <form method="POST" enctype="multipart/form-data">
+                          <div class="modal-body">
+                            <table>
+                              <tr>
+                                <td>Product Name </td>
+                                <td>&nbsp;:&nbsp;</td>
+                                <td><input type="text" name="pname"></td>
+                              </tr>
+                              <tr>
+                                <td colspan="3">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td>Product Price </td>
+                                <td>&nbsp;:&nbsp;</td>
+                                <td><input type="text" name="pprice"></td>
+                              </tr>
+                              <tr>
+                                <td colspan="3">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td>Product Quantity </td>
+                                <td>&nbsp;:&nbsp;</td>
+                                <td><input type="text" name="pquantity"></td>
+                              </tr>
+                              <tr>
+                                <td colspan="3">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td>Product Type </td>
+                                <td>&nbsp;:&nbsp;</td>
+                                <td><input type="text" name="ptype"></td>
+                              </tr>
+                              <tr>
+                                <td colspan="3">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td>Product Company </td>
+                                <td>&nbsp;:&nbsp;</td>
+                                <td>
+                                  <select class="form-control" required name="pcompany">
+                                    <?php
+                                    include('db.php');
+                                    $query2 = "SELECT * FROM `company_master`";
+                                    $result2 = mysqli_query($con, $query2);
+                                    while ($row = mysqli_fetch_assoc($result2)) {
+                                    ?>
+                                      <option value="<?php echo $row['ComUID'] ?>"><?php echo $row['Name'] ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                  </select>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td colspan="3">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td>Product Image </td>
+                                <td>&nbsp;:&nbsp;</td>
+                                <td><input type="file" name="file"></td>
+                              </tr>
+                            </table>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" name="submit" class="btn btn-primary" style="font-weight: bolder;">Add Stock</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card h-100">
+                <div class="card-body">
+                  <button class="btn-outline-danger btn-sm" style="float: right;">- Remove Stock</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
           <div class="row row-cols-1 row-cols-md-1 g-4">
             <div class="col">
               <div class="card">
@@ -216,73 +374,86 @@ if(isset($_SESSION['uname'])){
                     <table class="table">
                       <thead class=" text-primary">
                         <th class="text-uppercase" style="font-weight: bolder;">
-                          Customer ID
+                          Product ID
                         </th>
                         <th class="text-uppercase" style="font-weight: bolder;">
-                          Full Nawe
+                          Product Name
                         </th>
                         <th class="text-uppercase" style="font-weight: bolder;">
-                          Mobile
-                        </th>
-                        <th class="text-uppercase" style="font-weight: bolder;">
-                          Email
+                          Price
                         </th>
                         <th class="text-uppercase" style="text-align: center;font-weight: bolder;">
-                          Details
+                          Quantity
+                        </th>
+                        <th class="text-uppercase" style="font-weight: bolder;">
+                          Type
+                        </th>
+                        <th class="text-uppercase" style="font-weight: bolder;">
+                          Company
+                        </th>
+                        <th class="text-uppercase" style="font-weight: bolder;">
+                          Edit
                         </th>
                       </thead>
                       <tbody>
                         <?php
                         include('db.php');
-                        $query = "SELECT * FROM `customer_master` WHERE 1";
-                        $result = mysqli_query($con,$query);
-                        while($row = mysqli_fetch_assoc($result)){
-                          ?>
+                        $query = "SELECT sm.PUID,sm.Name,sm.price,sm.quantity,sm.type,sm.companyid,cm.ComUID,cm.Name as cname 
+                        FROM stock_master sm, company_master cm WHERE sm.companyid = cm.ComUID";
+                        $result = mysqli_query($con, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
                           <tr>
-                          <td>
-                            <?php echo $row['CUID'] ?>
-                          </td>
-                          <td>
-                          <?php echo $row['Name'] ?>
-                          </td>
-                          <td>
-                            +91 <?php echo $row['Mobile'] ?>
-                          </td>
-                          <td>
-                          <?php echo $row['email'] ?>
-                          </td>
-                          <td>
-                            <button type="btn" class="btn btn-outline-primary btn-sm btn-block" data-toggle="modal" data-target="#modal-<?php echo $row['CUID'] ?>"><b>Details</b></button>
-                          </td>
-                          <div class="modal fade" id="modal-<?php echo $row['CUID'] ?>" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                  Name : <?php echo $row['Name'] ?>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
+                            <td>
+                              <?php echo $row['PUID'] ?>
+                            </td>
+                            <td>
+                              <?php echo $row['Name'] ?>
+                            </td>
+                            <td>
+                              ₹<?php echo $row['price'] ?>
+                            </td>
+                            <td style="text-align:  center;">
+                              <?php echo $row['quantity'] ?>
+                            </td>
+                            <td>
+                              <?php echo $row['type'] ?>
+                            </td>
+                            <td>
+                              <?php echo $row['cname'] ?>
+                            </td>
+                            <td>
+                              <button class="btn btn-outline-primary btn-sm btn-block" >Edit</button>
+                            </td>
+
+                            <div class="modal fade" id="modal-<?php echo $row['CUID'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Name : <?php echo $row['Name'] ?>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </tr>
-                          <?php
+                          </tr>
+                        <?php
                         }
-                        if(mysqli_num_rows($result) == 0){
-                          ?>
+                        if (mysqli_num_rows($result) == 0) {
+                        ?>
                           <tr>
                             <td colspan="5" style="text-align: center;">No registered customer found</td>
                           </tr>
-                          <?php
+                        <?php
                         }
                         ?>
                       </tbody>
@@ -293,12 +464,46 @@ if(isset($_SESSION['uname'])){
             </div>
           </div>
         </div>
-        
+
       </div>
-      <?php include('components/footer.php') ?>
+      <footer class="footer">
+        <div class="container-fluid">
+          <nav class="float-left">
+            <ul>
+              <li>
+                <a href="https://www.creative-tim.com">
+                  Creative Tim
+                </a>
+              </li>
+              <li>
+                <a href="https://creative-tim.com/presentation">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="http://blog.creative-tim.com">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="https://www.creative-tim.com/license">
+                  Licenses
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="copyright float-right">
+            &copy;
+            <script>
+              document.write(new Date().getFullYear())
+            </script>, made with <i class="material-icons">favorite</i> by
+            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+          </div>
+        </div>
+      </footer>
     </div>
   </div>
-  
+
   <!--   Core JS Files   -->
   <script src="  assets/js/core/jquery.min.js"></script>
   <script src="  assets/js/core/popper.min.js"></script>
@@ -343,8 +548,8 @@ if(isset($_SESSION['uname'])){
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="  assets/demo/demo.js"></script>
   <script>
-    $(document).ready(function () {
-      $().ready(function () {
+    $(document).ready(function() {
+      $().ready(function() {
         $sidebar = $('.sidebar');
 
         $sidebar_img_container = $sidebar.find('.sidebar-background');
@@ -364,7 +569,7 @@ if(isset($_SESSION['uname'])){
 
         }
 
-        $('.fixed-plugin a').click(function (event) {
+        $('.fixed-plugin a').click(function(event) {
           // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
           if ($(this).hasClass('switch-trigger')) {
             if (event.stopPropagation) {
@@ -375,7 +580,7 @@ if(isset($_SESSION['uname'])){
           }
         });
 
-        $('.fixed-plugin .active-color span').click(function () {
+        $('.fixed-plugin .active-color span').click(function() {
           $full_page_background = $('.full-page-background');
 
           $(this).siblings().removeClass('active');
@@ -396,7 +601,7 @@ if(isset($_SESSION['uname'])){
           }
         });
 
-        $('.fixed-plugin .background-color .badge').click(function () {
+        $('.fixed-plugin .background-color .badge').click(function() {
           $(this).siblings().removeClass('active');
           $(this).addClass('active');
 
@@ -407,7 +612,7 @@ if(isset($_SESSION['uname'])){
           }
         });
 
-        $('.fixed-plugin .img-holder').click(function () {
+        $('.fixed-plugin .img-holder').click(function() {
           $full_page_background = $('.full-page-background');
 
           $(this).parent('li').siblings().removeClass('active');
@@ -417,7 +622,7 @@ if(isset($_SESSION['uname'])){
           var new_image = $(this).find("img").attr('src');
 
           if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            $sidebar_img_container.fadeOut('fast', function () {
+            $sidebar_img_container.fadeOut('fast', function() {
               $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
               $sidebar_img_container.fadeIn('fast');
             });
@@ -426,7 +631,7 @@ if(isset($_SESSION['uname'])){
           if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
             var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
 
-            $full_page_background.fadeOut('fast', function () {
+            $full_page_background.fadeOut('fast', function() {
               $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
               $full_page_background.fadeIn('fast');
             });
@@ -445,7 +650,7 @@ if(isset($_SESSION['uname'])){
           }
         });
 
-        $('.switch-sidebar-image input').change(function () {
+        $('.switch-sidebar-image input').change(function() {
           $full_page_background = $('.full-page-background');
 
           $input = $(this);
@@ -477,7 +682,7 @@ if(isset($_SESSION['uname'])){
           }
         });
 
-        $('.switch-sidebar-mini input').change(function () {
+        $('.switch-sidebar-mini input').change(function() {
           $body = $('body');
 
           $input = $(this);
@@ -492,7 +697,7 @@ if(isset($_SESSION['uname'])){
 
             $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
 
-            setTimeout(function () {
+            setTimeout(function() {
               $('body').addClass('sidebar-mini');
 
               md.misc.sidebar_mini_active = true;
@@ -500,12 +705,12 @@ if(isset($_SESSION['uname'])){
           }
 
           // we simulate the window Resize so the charts will get updated in realtime.
-          var simulateWindowResize = setInterval(function () {
+          var simulateWindowResize = setInterval(function() {
             window.dispatchEvent(new Event('resize'));
           }, 180);
 
           // we stop the simulation of Window Resize after the animations are completed
-          setTimeout(function () {
+          setTimeout(function() {
             clearInterval(simulateWindowResize);
           }, 1000);
 
@@ -514,7 +719,7 @@ if(isset($_SESSION['uname'])){
     });
   </script>
   <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
       md.initDashboardPageCharts();
 
@@ -523,8 +728,3 @@ if(isset($_SESSION['uname'])){
 </body>
 
 </html>
-<?php
-}else{
-  header("location:db.php?invalid=0");
-}
-?>
