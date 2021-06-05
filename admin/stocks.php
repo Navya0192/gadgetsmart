@@ -6,6 +6,8 @@ if (isset($_POST['submit'])) {
   $pquantity = $_POST['pquantity'];
   $ptype = $_POST['ptype'];
   $pcompany = $_POST['pcompany'];
+  $pram = $_POST['pram'];
+  $pstorage = $_POST['pstorage'];
 
   $name = $_FILES['file']['name'];
   $name1 = "ProductImg/" . $name . "";
@@ -19,12 +21,11 @@ if (isset($_POST['submit'])) {
     if (in_array($imageFileType, $extensions_arr)) {
       if (move_uploaded_file($_FILES['file']['tmp_name'], $target_dir . $name)) {
         include('db.php');
-        $sql22 = "INSERT INTO `stock_master`(`PUID`, `Name`, `Imagepath`, `price`, `type`, `quantity`, `companyid`) 
-        VALUES (UUID(),'" . $pname . "','" . $name1 . "','" . $pprice . "','" . $ptype . "','" . $pquantity . "','" . $pcompany . "')";
+        $sql22 = "INSERT INTO `stock_master`(`PUID`, `Name`, `Imagepath`, `price`, `type`, `quantity`, `companyid`,`Ram`, `Storage`) 
+        VALUES (UUID(),'" . $pname . "','" . $name1 . "','" . $pprice . "','" . $ptype . "','" . $pquantity . "','" . $pcompany . "','" . $pram . "','" . $pstorage . "')";
         if (mysqli_query($con, $sql22)) {
           header("location:stocks.php?success=0");
-        }
-        else{
+        } else {
           header("location:stocks.php?failed=0");
         }
       }
@@ -34,6 +35,16 @@ if (isset($_POST['submit'])) {
   } else {
     header("location:stocks.php?EImgSize=0");
   }
+}
+if (isset($_POST['editsubmit'])) {
+  $proid = $_POST['proid'];
+  $proname = $_POST['proname'];
+  $proprice = $_POST['proprice'];
+  $proquan = $_POST['proquan'];
+  $ptype = $_POST['ptype'];
+  $procom = $_POST['procom'];
+  $proram = $_POST['proram'];
+  $prostorage = $_POST['prostorage'];
 }
 
 ?>
@@ -295,6 +306,22 @@ if (isset($_POST['submit'])) {
                                 <td colspan="3">&nbsp;</td>
                               </tr>
                               <tr>
+                                <td>Ram </td>
+                                <td>&nbsp;:&nbsp;</td>
+                                <td><input type="text" name="pram"></td>
+                              </tr>
+                              <tr>
+                                <td colspan="3">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td>Storage </td>
+                                <td>&nbsp;:&nbsp;</td>
+                                <td><input type="text" name="pstorage"></td>
+                              </tr>
+                              <tr>
+                                <td colspan="3">&nbsp;</td>
+                              </tr>
+                              <tr>
                                 <td>Product Price </td>
                                 <td>&nbsp;:&nbsp;</td>
                                 <td><input type="text" name="pprice"></td>
@@ -398,7 +425,7 @@ if (isset($_POST['submit'])) {
                       <tbody>
                         <?php
                         include('db.php');
-                        $query = "SELECT sm.PUID,sm.Name,sm.price,sm.quantity,sm.type,sm.companyid,cm.ComUID,cm.Name as cname 
+                        $query = "SELECT sm.PUID,sm.Name,sm.price,sm.quantity,sm.type,sm.companyid,cm.ComUID,sm.Ram,sm.Storage,cm.Name as cname 
                         FROM stock_master sm, company_master cm WHERE sm.companyid = cm.ComUID";
                         $result = mysqli_query($con, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
@@ -408,7 +435,7 @@ if (isset($_POST['submit'])) {
                               <?php echo $row['PUID'] ?>
                             </td>
                             <td>
-                              <?php echo $row['Name'] ?>
+                              <?php echo $row['Name'] ?>&nbsp;<?php echo $row['Ram'] ?>&nbsp;<?php echo $row['Storage'] ?>
                             </td>
                             <td>
                               ₹<?php echo $row['price'] ?>
@@ -423,29 +450,38 @@ if (isset($_POST['submit'])) {
                               <?php echo $row['cname'] ?>
                             </td>
                             <td>
-                              <button class="btn btn-outline-primary btn-sm btn-block" >Edit</button>
+                              <button class="btn btn-outline-primary btn-sm btn-block" data-toggle="modal" data-target="#modal-<?php echo $row['PUID'] ?>">Edit</button>
                             </td>
-
-                            <div class="modal fade" id="modal-<?php echo $row['CUID'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
+                          </tr>
+                          <div class="modal fade" id="modal-<?php echo $row['PUID'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog " role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel"><b>Edit Stock</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form method="POST">
                                   <div class="modal-body">
-                                    Name : <?php echo $row['Name'] ?>
+                                    <h5><b>Product ID</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['PUID'] ?>" name="proid" id="proid"> (disabled) </h5>
+                                    <h5><b>Product Name</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['Name'] ?>" name="proname"> </h5>
+                                    <h5><b>Product Ram</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['Ram'] ?>" name="proram"> </h5>
+                                    <h5><b>Product Storage</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['Storage'] ?>" name="prostorage"> </h5>
+                                    <h5><b>Product Price</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['price'] ?>" name="proprice"> </h5>
+                                    <h5><b>Product Quantity</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['quantity'] ?>" name="proquan"> </h5>
+                                    <h5><b>Product Type</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['type'] ?>" name="" id="protype"> (disabled) </h5>
+                                    <h5><b>Product Company</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['cname'] ?>" name="" id="procom"> (disabled)</h5>
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="submit" name="editsubmit" class="btn btn-primary">Save changes</button>
                                   </div>
-                                </div>
+                                </form>
                               </div>
                             </div>
-                          </tr>
+                          </div>
+
                         <?php
                         }
                         if (mysqli_num_rows($result) == 0) {
@@ -724,6 +760,16 @@ if (isset($_POST['submit'])) {
       md.initDashboardPageCharts();
 
     });
+  </script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script>
+    $('#proid').prop('readonly', true);
+  </script>
+  <script>
+    $('#procom').prop('readonly', true);
+  </script>
+  <script>
+    $('#protype').prop('readonly', true);
   </script>
 </body>
 
