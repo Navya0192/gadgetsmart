@@ -41,10 +41,17 @@ if (isset($_POST['editsubmit'])) {
   $proname = $_POST['proname'];
   $proprice = $_POST['proprice'];
   $proquan = $_POST['proquan'];
-  $ptype = $_POST['ptype'];
-  $procom = $_POST['procom'];
+  // $protype = $_POST['protype'];
+  // $procom = $_POST['procom'];
   $proram = $_POST['proram'];
   $prostorage = $_POST['prostorage'];
+  include('db.php');
+  $sql33="UPDATE `stock_master` SET `Name`='".$proname."',`price`='".$proprice."',`quantity`='".$proquan."',`Ram`='".$proram."',`Storage`='".$prostorage."' WHERE `PUID` = '".$proid."'";
+  if(mysqli_query($con,$sql33)){
+    header("location:stocks.php?DC=0");
+  }else{
+    header("location:stocks.php?DNC=0");
+  }
 }
 
 ?>
@@ -57,7 +64,7 @@ if (isset($_POST['editsubmit'])) {
   <link rel="icon" type="image/png" href="  assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Material Dashboard by Creative Tim
+    GadgetSmart Admin Panel
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -66,6 +73,10 @@ if (isset($_POST['editsubmit'])) {
   <!-- CSS Files -->
   <link href="  assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orelega+One&display=swap" rel="stylesheet">
+
   <link href="  assets/demo/demo.css" rel="stylesheet" />
 </head>
 
@@ -83,81 +94,45 @@ if (isset($_POST['editsubmit'])) {
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item   ">
-            <a class="nav-link" href="./dashboard.html">
+            <a class="nav-link" href="dashboard.php">
               <i class="material-icons">dashboard</i>
-              <p>Dashboard</p>
+              <p><b>Dashboard</b></p>
             </a>
           </li>
           <li class="nav-item  ">
             <a class="nav-link" href="customer.php">
-              <i class="material-icons">account_box</i>
-              <p>Customer</p>
+              <i class="material-icons">person</i>
+              <p><b>Customer</b></p>
+            </a>
+          </li>
+          <li class="nav-item  ">
+            <a class="nav-link" href="company.php">
+              <i class="material-icons">business</i>
+              <p><b>Company</b></p>
             </a>
           </li>
           <li class="nav-item  active  ">
-            <a class="nav-link" href="stocks.html">
+            <a class="nav-link" href="stocks.php">
               <i class="material-icons">loyalty</i>
-              <p>Stock</p>
+              <p><b>Stock</b></p>
             </a>
           </li>
           <li class="nav-item   ">
             <a class="nav-link" href="order.html">
               <i class="material-icons">list</i>
-              <p>Order</p>
+              <p><b>Order</b></p>
             </a>
           </li>
           <li class="nav-item   ">
             <a class="nav-link" href="delivery.html">
               <i class="material-icons">upcoming</i>
-              <p>Delivery</p>
+              <p><b>Delivery</b></p>
             </a>
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="./user.html">
-              <i class="material-icons">person</i>
-              <p>User Profile</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./tables.html">
-              <i class="material-icons">content_paste</i>
-              <p>Table List</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
-              <i class="material-icons">library_books</i>
-              <p>Typography</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./icons.html">
-              <i class="material-icons">bubble_chart</i>
-              <p>Icons</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./map.html">
-              <i class="material-icons">location_ons</i>
-              <p>Maps</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
-              <i class="material-icons">notifications</i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./rtl.html">
-              <i class="material-icons">language</i>
-              <p>RTL Support</p>
-            </a>
-          </li>
-          <li class="nav-item active-pro ">
-            <a class="nav-link" href="./upgrade.html">
-              <i class="material-icons">unarchive</i>
-              <p>Upgrade to PRO</p>
+              <i class="material-icons">payments</i>
+              <p><b>Payments</b></p>
             </a>
           </li>
         </ul>
@@ -168,123 +143,36 @@ if (isset($_POST['editsubmit'])) {
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:;">Dashboard</a>
+            <a class="navbar-brand" href="javascript:;" style="font-family: Orelega One;font-size: 35px;">Stock</a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                  <i class="material-icons">search</i>
-                  <div class="ripple-container"></div>
-                </button>
-              </div>
-            </form>
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:;">
-                  <i class="material-icons">dashboard</i>
-                  <p class="d-lg-none d-md-block">
-                    Stats
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="d-lg-none d-md-block">
-                    Some Actions
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="#">Another Notification</a>
-                  <a class="dropdown-item" href="#">Another One</a>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">person</i>
-                  <p class="d-lg-none d-md-block">
-                    Account
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                  <a class="dropdown-item" href="#">Profile</a>
-                  <a class="dropdown-item" href="#">Settings</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Log out</a>
-                </div>
-              </li>
-            </ul>
-          </div>
+          <?php include('components/navbar.php') ?>
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="content">
+      <div class="content" style="margin-top: 15px;padding-top: 20px;">
         <div class="container-fluid">
-          <?php
-          if (isset($_GET['success'])) {
-          ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Stock successfully added !</strong>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          <?php
-          }
-          ?>
-          <?php
-          if (isset($_GET['failed'])) {
-          ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong>Due to some error stock was not added, <br>Kindly try again later !</strong>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          <?php
-          }
-          ?>
-          <?php
-          if (isset($_GET['EImgExt'])) {
-          ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong>Image extension wasd not correct,<br> Please .jpg, .jpeg, .png</strong>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          <?php
-          }
-          ?>
-          <?php
-          if (isset($_GET['EImgSize'])) {
-          ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong>Image size is more than require size,<br>Maximum image size should be : 400kb</strong>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          <?php
-          }
-          ?>
-          <div class="row row-cols-1 row-cols-md-2 g-4">
+
+          <div class="row row-cols-1 row-cols-md-2 g-2">
             <div class="col">
-              <div class="card h-100">
+              <div class="card ">
                 <div class="card-body">
+
+
                   <button class="btn-outline-dark btn-sm" style="float: right;" data-toggle="modal" data-target="#AddStock">+ Add New Stock</button>
+                  <?php
+                  include('db.php');
+                  $query2 = "SELECT COUNT(`PUID`)as pcount from stock_master";
+                  $result2 = mysqli_query($con, $query2);
+                  while ($row = mysqli_fetch_assoc($result2)) {
+                    $pcount = $row['pcount'];
+                  }
+                  if (mysqli_num_rows($result2) == 0) {
+                    $pcount = 0;
+                  }
+
+                  ?>
+                  <h4><b>Total Product Added</b></h4>
+                  <h2><b>&nbsp;&nbsp;<?php echo $pcount ?></b></h2>
                   <div class="modal fade" id="AddStock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog " role="document">
                       <div class="modal-content">
@@ -384,15 +272,125 @@ if (isset($_POST['editsubmit'])) {
                 </div>
               </div>
             </div>
+            
             <div class="col">
-              <div class="card h-100">
+              <div class="card">
                 <div class="card-body">
-                  <button class="btn-outline-danger btn-sm" style="float: right;">- Remove Stock</button>
+                  
+                  <?php
+                  include('db.php');
+                  $query2 = "SELECT count(DISTINCT `companyid`)as pcomcount from stock_master";
+                  $result2 = mysqli_query($con, $query2);
+                  while ($row = mysqli_fetch_assoc($result2)) {
+                    $pcom = $row['pcomcount'];
+                  }
+                  if (mysqli_num_rows($result2) == 0) {
+                    $pcom = 0;
+                  }
+
+                  ?>
+                  <h4><b>Total Company Product Added</b></h4>
+                  <h2><b>&nbsp;&nbsp;<?php echo $pcom ?></b></h2>
                 </div>
               </div>
             </div>
           </div>
-          <br>
+          <?php
+          if (isset($_GET['success'])) {
+          ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert" >
+              <strong>Stock successfully added !</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
+          <?php
+          if (isset($_GET['failed'])) {
+          ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Due to some error stock was not added, <br>Kindly try again later !</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
+          <?php
+          if (isset($_GET['EImgExt'])) {
+          ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Image extension wasd not correct,<br> Please .jpg, .jpeg, .png</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
+          <?php
+          if (isset($_GET['DNC'])) {
+          ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>There was an error updating the data.<br>Kindly try agin later</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
+          <?php
+          if (isset($_GET['DC'])) {
+          ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Data Updated Successfully</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
+          <?php
+          if (isset($_GET['PD'])) {
+          ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Product deleted successfully</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
+          <?php
+          if (isset($_GET['PND'])) {
+          ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>There was an error deleting the product</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
+          <?php
+          if (isset($_GET['EImgSize'])) {
+          ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Image size is more than require size,<br>Maximum image size should be : 400kb</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <?php
+          }
+          ?>
           <div class="row row-cols-1 row-cols-md-1 g-4">
             <div class="col">
               <div class="card">
@@ -418,7 +416,7 @@ if (isset($_POST['editsubmit'])) {
                         <th class="text-uppercase" style="font-weight: bolder;">
                           Company
                         </th>
-                        <th class="text-uppercase" style="font-weight: bolder;">
+                        <th class="text-uppercase" style="font-weight: bolder;text-align: center;">
                           Edit
                         </th>
                       </thead>
@@ -446,7 +444,7 @@ if (isset($_POST['editsubmit'])) {
                             <td>
                               <?php echo $row['type'] ?>
                             </td>
-                            <td>
+                            <td style="text-align: center;">
                               <?php echo $row['cname'] ?>
                             </td>
                             <td>
@@ -473,9 +471,9 @@ if (isset($_POST['editsubmit'])) {
                                     <h5><b>Product Type</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['type'] ?>" name="" id="protype"> (disabled) </h5>
                                     <h5><b>Product Company</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['cname'] ?>" name="" id="procom"> (disabled)</h5>
                                   </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" name="editsubmit" class="btn btn-primary">Save changes</button>
+                                  <div class="modal-footer mx-auto">
+                                    <a href="removeProduct.php?pid=<?php echo $row['PUID'] ?>" type="btn" class="btn btn-danger fw-bolder" style="float: left;" >Remove Product</a>
+                                    <button type="submit" name="editsubmit" class="btn btn-success fw-bolder">Save changes</button>
                                   </div>
                                 </form>
                               </div>
@@ -502,41 +500,7 @@ if (isset($_POST['editsubmit'])) {
         </div>
 
       </div>
-      <footer class="footer">
-        <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            <script>
-              document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-          </div>
-        </div>
-      </footer>
+      <?php include('components/footer.php') ?>
     </div>
   </div>
 

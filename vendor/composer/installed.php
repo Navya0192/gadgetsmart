@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'bc5ab4d8bb5fcf397a515c3c0c9acc85556ab870',
+        'reference' => '94e7a6569f2547b100c45a6614219fee8bad168f',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'bc5ab4d8bb5fcf397a515c3c0c9acc85556ab870',
+            'reference' => '94e7a6569f2547b100c45a6614219fee8bad168f',
             'dev_requirement' => false,
         ),
         'ezyang/htmlpurifier' => array(
@@ -92,6 +92,15 @@
             'install_path' => __DIR__ . '/../paragonie/random_compat',
             'aliases' => array(),
             'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
+            'dev_requirement' => false,
+        ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v6.4.1',
+            'version' => '6.4.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'reference' => '9256f12d8fb0cd0500f93b19e18c356906cbed3d',
             'dev_requirement' => false,
         ),
         'phpoffice/phpspreadsheet' => array(
