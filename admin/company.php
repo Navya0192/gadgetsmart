@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+if(isset($_SESSION['AUID'])){
 if (isset($_POST['submit'])) {
   $cname = $_POST['cname'];
   $cdesp = $_POST['cdesp'];
@@ -623,3 +624,9 @@ if (isset($_POST['submit'])) {
 </body>
 
 </html>
+<?php
+}
+else{
+  header("location:index.php?plogin=0");
+}
+?>

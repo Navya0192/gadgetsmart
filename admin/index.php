@@ -6,11 +6,10 @@ if (isset($_POST['submit'])) {
     $pass = $_POST['pass'];
     include('db.php');
     $query = "SELECT * FROM `admin_master` WHERE `username` ='" . $uname . "' AND `Passowrd` = '" . $pass . "'";
-    $result = $con->query($query);
-    if ($result->num_rows > 0) {
-        $_SESSION['uname'] = $uname;
+    $result2 = mysqli_query($con, $query);
+    if ($row = mysqli_fetch_assoc($result2)) {
+        $_SESSION['AUID'] = $row['AUID'];
         header("location:customer.php");
-        die;
     } else {
         header("location:index.php?invalid=0");
     }

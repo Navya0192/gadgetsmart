@@ -1,16 +1,13 @@
 <?php
-echo"welcome to database";
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "gadgetsmart";
+$database = "gadgetsmart";
 
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+// create connection
+$con = mysqli_connect($servername, $username, $password, $database);
 
-if(!$conn){
-    die("Sorry failed to connect".mysqli_connect_error());
+if($con -> connect_error){
+    echo("connection failed");
 }
-
-echo"COnnection Successfull"
-
 ?>

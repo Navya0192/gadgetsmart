@@ -8,6 +8,6 @@ if (ini_get("session.use_cookies")) {
     );
 }
 session_destroy();
-header("location:index.php?success=0");
+header("location:index.php?logout=0");
 
 ?>

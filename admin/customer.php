@@ -14,7 +14,7 @@ session_start();
 // session_destroy();
 // destroying ends
 
-if (isset($_SESSION['uname'])) {
+if (isset($_SESSION['AUID'])) {
 ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -497,8 +497,9 @@ if (isset($_SESSION['uname'])) {
   </body>
 
   </html>
-<?php
-} else {
-  header("location:db.php?invalid=0");
+  <?php
+}
+else{
+  header("location:index.php?plogin=0");
 }
 ?>

@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-if(isset($_SESSION['cuname'])){
+if (isset($_SESSION['cuname'])) {
   $displayContent = "block";
   $displayContent1 = "none";
-}else{
+} else {
   $displayContent = "none";
   $displayContent1 = "block";
 }
@@ -27,9 +27,7 @@ if(isset($_SESSION['cuname'])){
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
@@ -71,22 +69,19 @@ if(isset($_SESSION['cuname'])){
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="index.html" style="font-weight: bolder;"><span>HOME</span></a></li>
-          <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>PRODUCTS</span> <i
-                class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>PRODUCTS</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Mobiles</span> <i
-                    class="bi bi-chevron-right"></i></a>
+              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Mobiles</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
                   <li><a href="mi.html">Mi</a></li>
                   <li><a href="samsung.html">Samsung</a></li>
                   <li><a href="vivo.html">Vivo</a></li>
                   <li><a href="oppo.html">Oppo</a></li>
                   <li><a href="oneplus.html">Oneplus</a></li>
-          
+
                 </ul>
               </li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Laptops</span> <i
-                    class="bi bi-chevron-right"></i></a>
+              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Laptops</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
                   <li><a href="hp.html">HP</a></li>
                   <li><a href="asusdell.html">Dell</a></li>
@@ -94,24 +89,22 @@ if(isset($_SESSION['cuname'])){
                   <li><a href="acer.html">Acer</a></li>
                   <li><a href="asusdell.html">Asus</a></li>
                   <li><a href="mi.html">Mi</a></li>
-                
-                </ul>
-                </li>
 
-                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>TV & Tablets</span> <i
-                  class="bi bi-chevron-right"></i></a>
-              <ul>
-              
-                <li><a href="mi.html">Mi</a></li>
-                <li><a href="oneplus.html">Oneplus</a></li>
-                <li><a href="samsung.html">SAMSUNG</a></li>
-                
-              </ul>
-        </li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Accessories</span> <i
-                    class="bi bi-chevron-right"></i></a>
+                </ul>
+              </li>
+
+              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>TV & Tablets</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                
+
+                  <li><a href="mi.html">Mi</a></li>
+                  <li><a href="oneplus.html">Oneplus</a></li>
+                  <li><a href="samsung.html">SAMSUNG</a></li>
+
+                </ul>
+              </li>
+              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Accessories</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+
                   <li><a href="#">earphones</a></li>
 
                 </ul>
@@ -120,22 +113,24 @@ if(isset($_SESSION['cuname'])){
 
           <li><a href="services.html" style="font-weight: bolder;">SERVICES</a></li>
           <li class="dropdown"><a href="pricing.html" style="font-weight: bolder;"><span>PRICE RANGE</span>
-          <i class="bi bi-chevron-down"></i></a>
-          <ul>
-            <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Below ₹ 10,000</span></a></li>
-            <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 10,000 - ₹ 20,000 </span></a></li>
-            <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 20,000 - ₹ 30,000</span></a></li>
-            <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 30,000 -₹ 40,000</span></a></li>
-            <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Above ₹ 40,000</span></a></li>
-          </ul></li>
-                  
+              <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Below ₹ 10,000</span></a></li>
+              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 10,000 - ₹ 20,000 </span></a></li>
+              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 20,000 - ₹ 30,000</span></a></li>
+              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 30,000 -₹ 40,000</span></a></li>
+              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Above ₹ 40,000</span></a></li>
+            </ul>
+          </li>
+
 
           <li><a href="contact.html" style="font-weight: bolder;">CONTACT</a></li>
-          <li style="display:<?php echo $displayContent?>"><a href="logout.php" class="text-danger" style="font-weight: bolder;">LOGOUT</a></li>
-          <li style="display:<?php echo $displayContent1?>"><a href="login/index.php" class="text-light" style="font-weight: bolder;">LOGIN</a></li>
+          <li style="display:<?php echo $displayContent ?>"><a href="logout.php" class="text-danger" style="font-weight: bolder;">LOGOUT</a></li>
+          <li style="display:<?php echo $displayContent1 ?>"><a href="login/index.php" class="text-light" style="font-weight: bolder;">LOGIN</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+      </nav>
+      <!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
@@ -154,7 +149,9 @@ if(isset($_SESSION['cuname'])){
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2 class="animate__animated animate__fadeInDown">Welcome to <span>GADGET SAMRT</span></h2>
-                <p class="animate__animated animate__fadeInUp"><h4 style="padding-left:40px;color: rgb(0, 0, 0); font-weight: bolder;font-family: 'Times New Roman', Times, serif">Mi authorized store in managlore</h4></p>
+                <p class="animate__animated animate__fadeInUp">
+                <h4 style="padding-left:40px;color: rgb(0, 0, 0); font-weight: bolder;font-family: 'Times New Roman', Times, serif">Mi authorized store in managlore</h4>
+                </p>
                 <a href="" class="btn-get-started animate__animated animate__fadeInUp">Read More</a>
               </div>
             </div>
@@ -165,7 +162,9 @@ if(isset($_SESSION['cuname'])){
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2 class="animate__animated fanimate__adeInDown"><span> GRAB NOW !</span></h2>
-                <p class="animate__animated animate__fadeInUp"><h4  style="padding-left:40px;color: rgb(31, 5, 48); font-weight: bolder;font-family: 'Times New Roman', Times, serif">Gadget smart is up with exciting Deals . What you waiting for grab this amazing offer <br>5 days more for this amazing deal to be out.</h4></p>
+                <p class="animate__animated animate__fadeInUp">
+                <h4 style="padding-left:40px;color: rgb(31, 5, 48); font-weight: bolder;font-family: 'Times New Roman', Times, serif">Gadget smart is up with exciting Deals . What you waiting for grab this amazing offer <br>5 days more for this amazing deal to be out.</h4>
+                </p>
                 <a href="" class="btn-get-started animate__animated animate__fadeInUp">VIEW MORE </a>
               </div>
             </div>
@@ -199,16 +198,16 @@ if(isset($_SESSION['cuname'])){
 
         </div> -->
 
-        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-        </a>
+          <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+          </a>
 
-        <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-        </a>
+          <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+          </a>
 
+        </div>
       </div>
-    </div>
   </section><!-- End Hero -->
 
   <main id="main">
@@ -217,95 +216,42 @@ if(isset($_SESSION['cuname'])){
       <div class="row row-cols-1 row-cols-md-1 g-4">
         <div class="col">
           <div class="card" style="background-color:#2c2b2c;padding-top: 20px;">
-            <h5 style="padding-left:30px; font-weight: bolder;font-family: Berkshire Swash;">Newly Releases
+            <h5 style="padding-left:30px; font-weight: bolder;font-family: Berkshire Swash;">Newly Added
             </h5>
             <div class="card-body">
               <div class="row row-cols-1 row-cols-md-5 g-4">
-                <div class="col">
-                  <div class="card">
-                    <center>
-                      <br>
-                      <img src="assets/img/1.jpeg" class="card-img-top" alt="..." style="width: 20%;">
-                    </center>
-                    <div class="card-body">
-                      <h6 class="card-title text-center" style="color: black;">Xiaomi Redmi Note 9 Pro Max</h6>
-                      <h6 class="card-title text-center" style="color: black;"><b style="color: #7B1FA2;">Price :</b>₹ 14,590
-                        </h6>
-                      <hr style="color: black;">
-                      <div class="d-grid gap-2">
-                        <button class="btn btn-dark" type="button">View</button>
+                <?php
+                include('db.php');
+                $query15 = "SELECT * FROM `stock_master` WHERE 1 limit 5";
+                $result15 = mysqli_query($con, $query15);
+                while ($row = mysqli_fetch_assoc($result15)) {
+
+                ?>
+                  <div class="col">
+                    <div class="card h-100">
+                      <center>
+                        <br>
+                        <img src="admin/<?php echo $row['Imagepath'] ?>" class="card-img-top" alt="..." style="width:150px; max-height: 100px;">
+                      </center>
+                      <div class="card-body ">
+                        <h6 class="card-title text-center " style="color: black;"><?php echo $row['Name'] ?> <?php echo $row['Ram'] ?> <?php echo $row['Storage'] ?></h6>
+                        <br>
+
+                      </div>
+                      <div class="card-footer">
+                        <P class="card-title text-center" style="color: black;"><b style="color: #7B1FA2;">Price :</b>₹<?php echo $row['price'] ?>
+                        </P>
+                        <hr style="color: black;">
+                        <div class="d-grid gap-2  ">
+                          <button class="btn btn-dark" type="button">View</button>
+
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="col">
-                  <div class="card">
-                    <center>
-                      <br>
-                      <img src="assets/img/2.jpeg" class="card-img-top" alt="..." style="width: 50%;">
-                    </center>
-                    <div class="card-body">
-                      <h6 class="card-title text-center" style="color: black;">DELL XPS 13 </h6>
-                      <h6 class="card-title text-center" style="color: black;"><b style="color: #7B1FA2;">Price :</b>₹ 94,990
-                        </h6>
-                      <hr style="color: black;">
-                      <div class="d-grid gap-2">
-                        <button class="btn btn-dark" type="button">View</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card">
-                    <center>
-                      <br>
-                      <img src="vivoy20a.jpg" class="card-img-top" alt="..." style="width: 40%;">
-                    </center>
-                    <div class="card-body">
-                      <h6 class="card-title text-center" style="color: black;">VIVO Y 20A</h6>
-                      <h6 class="card-title text-center" style="color: black;"><b style="color: #7B1FA2;">Price :</b>₹ 51,999
-                        </h6>
-                      <hr style="color: black;">
-                      <div class="d-grid gap-2">
-                        <button class="btn btn-dark" type="button">View</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card">
-                    <center>
-                      <br>
-                      <img src="vivox50.jpg" class="card-img-top" alt="..." style="width: 40%;">
-                    </center>
-                    <div class="card-body">
-                      <h6 class="card-title text-center" style="color: black;">VIVO X50</h6>
-                      <h6 class="card-title text-center" style="color: black;"><b style="color: #7B1FA2;">Price :</b>₹ 1,19,900
-                        </h6>
-                      <hr style="color: black;">
-                      <div class="d-grid gap-2">
-                        <button class="btn btn-dark" type="button">View</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card">
-                    <center>
-                      <br>
-                      <img src="assets/img/9.jpeg" class="card-img-top" alt="..." style="width: 20%;">
-                    </center>
-                    <div class="card-body">
-                      <h6 class="card-title text-center" style="color: black;">Samsung Galexy S20FE</h6>
-                      <h6 class="card-title text-center" style="color: black;"><b style="color: #7B1FA2;">Price :</b>₹ 37,800
-                      </h6>
-                      <hr style="color: black;">
-                      <div class="d-grid gap-2">
-                        <button class="btn btn-dark" type="button">View</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <?php
+                }
+                ?>
 
               </div>
             </div>
@@ -368,8 +314,7 @@ if(isset($_SESSION['cuname'])){
                 <div class="col">
                   <div class="card" style="background-color: transparent;border-color: transparent;">
                     <div class="card-body">
-                      <h5 class="card-title"
-                        style="color: black;font-size: xx-large;padding-left: 20px;font-family:Noto Serif;">COMPARE
+                      <h5 class="card-title" style="color: black;font-size: xx-large;padding-left: 20px;font-family:Noto Serif;">COMPARE
                       </h5>
                       <p class="card-text" style="padding-left: 20px;color: black;">Get one that is best for you !</p>
                       <div class="btn" style="padding-left: 20px;">
@@ -384,40 +329,40 @@ if(isset($_SESSION['cuname'])){
                     <img src="assets/img/10.jpeg" class="card-img-top" alt="..." style="width: 20%;"> -->
                     <div class="row row-cols-1 row-cols-md-2 g-4">
                       <div class="col">
-                        <div class="card"style="background-color: transparent;border-color: transparent;" >
+                        <div class="card" style="background-color: transparent;border-color: transparent;">
                           <center>
-                          <img src="assets/img/9.jpeg" class="card-img-top" alt="..."  style="width: 20%;">
-                          <br><br>
-                          <h6 class="card-title text-center" style="color: black;">Samsung Galexy S20FE</h6>
-                        </center>
+                            <img src="assets/img/9.jpeg" class="card-img-top" alt="..." style="width: 20%;">
+                            <br><br>
+                            <h6 class="card-title text-center" style="color: black;">Samsung Galexy S20FE</h6>
+                          </center>
                         </div>
                       </div>
                       <div class="col">
                         <div class="card" style="background-color: transparent;border-color: transparent;">
                           <center>
-                            <img src="assets/img/1.jpeg" class="card-img-top" alt="..."  style="width: 20%;"><br><br>
+                            <img src="assets/img/1.jpeg" class="card-img-top" alt="..." style="width: 20%;"><br><br>
                             <h6 class="card-title text-center" style="color: black;">Xiaomi Redmi Note 9 Pro Max</h6>
-                        </center>
+                          </center>
                         </div>
                       </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
+          <div class="col">
+            <div class="card">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+                  content. This content is a little bit longer.</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- -->
+        <!-- -->
 
     </section><!-- End Featured Section -->
     <!-- ======= Featured Section ======= -->
@@ -655,8 +600,8 @@ if(isset($_SESSION['cuname'])){
               K.S.R Road <br>
               Hampankatta,Managlore<br>
               Karnataka 575001 <br><br>
-              <strong>Phone:</strong>  08105572368 , +91 8244280428<br>
-              <strong>Email:</strong>  @gadget-smart-mangalore<br>
+              <strong>Phone:</strong> 08105572368 , +91 8244280428<br>
+              <strong>Email:</strong> @gadget-smart-mangalore<br>
             </p>
 
           </div>
@@ -678,11 +623,10 @@ if(isset($_SESSION['cuname'])){
       </div>
     </div>
 
-    
+
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

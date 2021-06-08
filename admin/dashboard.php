@@ -1,4 +1,8 @@
+<?php
+session_start();
+if(isset($_SESSION['AUID'])){
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -889,3 +893,9 @@
 </body>
 
 </html>
+<?php
+}
+else{
+  header("location:index.php?plogin=0");
+}
+?>
