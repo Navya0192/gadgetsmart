@@ -212,46 +212,50 @@ if (isset($_SESSION['cuname'])) {
 
   <main id="main">
 
-    <section id="featured" class="featured">
+  <section id="featured" class="featured">
       <div class="row row-cols-1 row-cols-md-1 g-4">
         <div class="col">
-          <div class="card" style="background-color:#2c2b2c;padding-top: 20px;">
-            <h5 style="padding-left:30px; font-weight: bolder;font-family: Berkshire Swash;">Newly Added
+          <div class="card" style="background-color: #f1f1f1;;padding-top: 20px;">
+            <h5 style="padding-left:30px; font-weight: bolder;font-family: Berkshire Swash;" class="text-dark">Newly Releases
             </h5>
             <div class="card-body">
               <div class="row row-cols-1 row-cols-md-5 g-4">
                 <?php
                 include('db.php');
-                $query15 = "SELECT * FROM `stock_master` WHERE 1 limit 5";
+                $query15 = "SELECT * FROM `stock_master` WHERE quantity > 0 LIMIT 5";
                 $result15 = mysqli_query($con, $query15);
                 while ($row = mysqli_fetch_assoc($result15)) {
-
                 ?>
                   <div class="col">
-                    <div class="card h-100">
-                      <center>
-                        <br>
-                        <img src="admin/<?php echo $row['Imagepath'] ?>" class="card-img-top" alt="..." style="width:150px; max-height: 100px;">
-                      </center>
-                      <div class="card-body ">
-                        <h6 class="card-title text-center " style="color: black;"><?php echo $row['Name'] ?> <?php echo $row['Ram'] ?> <?php echo $row['Storage'] ?></h6>
-                        <br>
-
-                      </div>
-                      <div class="card-footer">
-                        <P class="card-title text-center" style="color: black;"><b style="color: #7B1FA2;">Price :</b>₹<?php echo $row['price'] ?>
-                        </P>
-                        <hr style="color: black;">
-                        <div class="d-grid gap-2  ">
-                          <button class="btn btn-dark" type="button">View</button>
-
+                    <div class="card h-100 shadow">
+                      <div class="row row-cols-1 row-cols-md-1 g-1">
+                        <div class="col">
+                          <div class="card" style="border: none;">
+                            <img src="admin/<?php echo $row['Imagepath'] ?>" class="card-img-top image-fluid mx-auto mt-3 mb-2" style="width: 150px;height: 100px;">
+                          </div>
                         </div>
+                        <div class="col">
+                          <div class="card" style="border: none;">
+                            <div class="card-body" style="min-height: 90px;max-height: 90px;">
+                              <div class="card-title text-center" style="color: black;font-size: large;"><?php echo $row['Name'] ?> <?php echo $row['Ram']?> <?php echo $row['Storage'] ?></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <h5 class="card-title text-center" style="color: black;font-family: Arial, Helvetica, sans-serif;"><b style="color: #7B1FA2;">Price :</b>₹<?php echo $row['price'] ?></h5>
+                      <div class="d-grid gap-2 p-3" style="border-top: 2px solid grey">
+                        <button class="btn btn-dark" type="button">View</button>
                       </div>
                     </div>
                   </div>
+
                 <?php
                 }
                 ?>
+
+
+
+
 
               </div>
             </div>
@@ -269,33 +273,16 @@ if (isset($_SESSION['cuname'])) {
 
                   <div class="clients-slider swiper-container">
                     <div class="swiper-wrapper align-items-center">
-                      <div class="swiper-slide"><img src="mi.jpg" class="img-fluid" alt=""></div>
-                      <div class="swiper-slide"><img src="oppo.jpg" class="img-fluid" alt="">
-                      </div>
-                      <div class="swiper-slide"><img src="vivo.jpg" class="img-fluid" alt="">
-                      </div>
-                      <div class="swiper-slide"><img src="samsung.jpg" class="img-fluid" alt="">
-                      </div>
-                      <div class="swiper-slide"><img src="oneplus.jpg" class="img-fluid" alt="">
-                      </div>
-                      <div class="swiper-slide"><img src="realme.jpg" class="img-fluid" alt="">
-                      </div>
-                      <div class="swiper-slide"><img src="lenovo.jpg" class="img-fluid" alt="">
-                      </div>
-                      <div class="swiper-slide"><img src="hp.jpg" class="img-fluid" alt="">
-                      </div>
-                      <div class="swiper-slide"><img src="dell.jpg" class="img-fluid" alt="">
-                      </div>
-                      <div class="swiper-slide"><img src="asus.jpg" class="img-fluid" alt="">
-                      </div>
-                      <div class="swiper-slide"><img src="acer.jpg" class="img-fluid" alt="">
-                      </div>
-                      <!-- <div class="swiper-slide"><img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
-                      </div>
-                      <div class="swiper-slide"><img src="assets/img/clients/client-7.png" class="img-fluid" alt="">
-                      </div>
-                      <div class="swiper-slide"><img src="assets/img/clients/client-8.png" class="img-fluid" alt="">
-                      </div> -->
+                      <?php
+                      include('db.php');
+                      $query11 = "SELECT * FROM `company_master`";
+                      $result11 = mysqli_query($con, $query11);
+                      while ($row = mysqli_fetch_assoc($result11)) {
+                      ?>
+                        <div class="swiper-slide"><a href="viewcompany.php?id=<?php echo $row['ComUID']?>"> <img src="admin/<?php echo $row['logo'] ?>" class="img-fluid" style="filter: none;" alt="mi.jpg"></a></div>
+                      <?php
+                      }
+                      ?>
                     </div>
                     <div class="swiper-pagination"></div>
                   </div>
@@ -364,186 +351,7 @@ if (isset($_SESSION['cuname'])) {
         </div>
         <!-- -->
 
-    </section><!-- End Featured Section -->
-    <!-- ======= Featured Section ======= -->
-    <!-- <section id="featured" class="featured">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="icon-box">
-              <i class="bi bi-card-checklist"></i>
-              <h3><a href="">Lorem Ipsum</a></h3>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate
-                non provident</p>
-            </div>
-          </div>
-          <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="icon-box">
-              <i class="bi bi-bar-chart"></i>
-              <h3><a href="">Dolor Sitema</a></h3>
-              <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad
-                limino ata</p>
-            </div>
-          </div>
-          <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="icon-box">
-              <i class="bi bi-binoculars"></i>
-              <h3><a href="">Sed ut perspiciatis</a></h3>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section> -->
-    <!-- End Featured Section -->
-
-    <!-- <section id="featured" class="featured">
-      <div class="container">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-          <div class="col">
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                  content. This content is a little bit longer.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                  content. This content is a little bit longer.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                  content.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                  content. This content is a little bit longer.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section> -->
-    <!-- End Featured Section -->
-
-    <!-- ======= About Section ======= -->
-    <!-- <section id="about" class="about">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-6">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0 content">
-            <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
-            <p class="font-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore
-              magna aliqua.
-            </p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-              <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla
-                pariatur.</li>
-            </ul>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-              voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </section> -->
-    <!-- End About Section -->
-
-    <!-- ======= Services Section ======= -->
-    <!-- <section id="services" class="services">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="">Lorem Ipsum</a></h4>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Sed ut perspiciatis</a></h4>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Magni Dolores</a></h4>
-              <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4><a href="">Nemo Enim</a></h4>
-              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-slideshow"></i></div>
-              <h4><a href="">Dele cardo</a></h4>
-              <p>Quis consequatur saepe eligendi voluptatem consequatur dolor consequuntur</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-arch"></i></div>
-              <h4><a href="">Divera don</a></h4>
-              <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section> -->
-    <!-- End Services Section -->
-
-    <!-- ======= Clients Section ======= -->
+    </section>
 
 
   </main><!-- End #main -->
