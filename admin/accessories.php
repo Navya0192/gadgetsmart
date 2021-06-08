@@ -90,7 +90,7 @@ if (isset($_SESSION['AUID'])) {
         Tip 2: you can also add an image using data-image tag
     -->
         <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-            GadgetSmart
+           GadgetSmart
           </a></div>
         <div class="sidebar-wrapper">
           <ul class="nav">
@@ -112,15 +112,15 @@ if (isset($_SESSION['AUID'])) {
                 <p><b>Company</b></p>
               </a>
             </li>
-            <li class="nav-item  active  ">
-              <a class="nav-link" href="stocks.php">
-                <i class="material-icons">shopping_bag</i>
-                <p><b>Stock</b></p>
-              </a>
-            </li>
             <li class="nav-item   ">
               <a class="nav-link" href="stocks.php">
                 <i class="material-icons">loyalty</i>
+                <p><b>Stock</b></p>
+              </a>
+            </li>
+            <li class="nav-item  active  ">
+              <a class="nav-link" href="stocks.php">
+                <i class="material-icons">shopping_bag</i>
                 <p><b>Accessories</b></p>
               </a>
             </li>
@@ -150,7 +150,7 @@ if (isset($_SESSION['AUID'])) {
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
           <div class="container-fluid">
             <div class="navbar-wrapper">
-              <a class="navbar-brand" href="javascript:;" style="font-family: Orelega One;font-size: 35px;">Stock</a>
+              <a class="navbar-brand" href="javascript:;" style="font-family: Orelega One;font-size: 35px;">Accessories</a>
             </div>
             <?php include('components/navbar.php') ?>
           </div>
@@ -165,7 +165,7 @@ if (isset($_SESSION['AUID'])) {
                   <div class="card-body">
 
 
-                    <button class="btn-outline-dark btn-sm" style="float: right;" data-toggle="modal" data-target="#AddStock">+ Add New Stock</button>
+                    <button class="btn-outline-dark btn-sm" style="float: right;" data-toggle="modal" data-target="#AddStock">+ Add New product</button>
                     <?php
                     include('db.php');
                     $query2 = "SELECT COUNT(`PUID`)as pcount from stock_master";
@@ -203,22 +203,7 @@ if (isset($_SESSION['AUID'])) {
                                 <tr>
                                   <td>Ram </td>
                                   <td>&nbsp;:&nbsp;</td>
-                                  <td><select class="form-control" required name="pram">
-                                      <option value="-">none</option>
-                                      <option>2GB</option>
-                                      <option>3GB</option>
-                                      <option>4GB</option>
-                                      <option>6GB</option>
-                                      <option>8GB</option>
-                                      <option>12GB</option>
-                                      <option>16GB</option>
-                                      <option>32GB</option>
-                                      <option>64GB</option>
-                                      <option>128GB</option>
-                                      <option>258GB</option>
-                                      <option>512GB</option>
-                                      <option>1TB</option>
-                                  </td>
+                                  <td><input type="text" name="pram"></td>
                                 </tr>
                                 <tr>
                                   <td colspan="3">&nbsp;</td>
@@ -226,28 +211,7 @@ if (isset($_SESSION['AUID'])) {
                                 <tr>
                                   <td>Storage </td>
                                   <td>&nbsp;:&nbsp;</td>
-                                  <td><select class="form-control" required name="pstorage">
-                                      <option value="-">none</option>
-                                      <option>2GB</option>
-                                      <option>3GB</option>
-                                      <option>4GB</option>
-                                      <option>6GB</option>
-                                      <option>8GB</option>
-                                      <option>12GB</option>
-                                      <option>16GB</option>
-                                      <option>32GB</option>
-                                      <option>64GB</option>
-                                      <option>128GB</option>
-                                      <option>258GB</option>
-                                      <option>512GB</option>
-                                      <option>1TB</option>
-                                      <option>1.5TB</option>
-                                      <option>2TB</option>
-                                      <option>2.5TB</option>
-                                      <option>3TB</option>
-                                      <option>4TB</option>
-                                      <option>5TB</option>
-                                    </td>
+                                  <td><input type="text" name="pstorage"></td>
                                 </tr>
                                 <tr>
                                   <td colspan="3">&nbsp;</td>
@@ -271,15 +235,7 @@ if (isset($_SESSION['AUID'])) {
                                 <tr>
                                   <td>Product Type </td>
                                   <td>&nbsp;:&nbsp;</td>
-                                  <td><select class="form-control" required name="ptype">
-                                      <option>Mobile</option>
-                                      <option>Laptop</option>
-                                      <option>Television</option>
-                                      <option>Tablets</option>
-                                      <option>Accessories</option>
-                                      <option>Other</option>
-                                      
-                                  </td>
+                                  <td><input type="text" name="ptype"></td>
                                 </tr>
                                 <tr>
                                   <td colspan="3">&nbsp;</td>
@@ -453,19 +409,19 @@ if (isset($_SESSION['AUID'])) {
                             Product ID
                           </th>
                           <th class="text-uppercase" style="font-weight: bolder;">
-                            Product Name
+                           Customer ID
+                          </th>
+                          <th class="text-uppercase" style="font-weight: bolder;">
+                            Prod. Name
+                          </th>
+                          <th class="text-uppercase" style="text-align: center;font-weight: bolder;">
+                            Description
                           </th>
                           <th class="text-uppercase" style="font-weight: bolder;">
                             Price
                           </th>
-                          <th class="text-uppercase" style="text-align: center;font-weight: bolder;">
-                            Quantity
-                          </th>
                           <th class="text-uppercase" style="font-weight: bolder;">
-                            Type
-                          </th>
-                          <th class="text-uppercase" style="font-weight: bolder;">
-                            Company
+                            Image
                           </th>
                           <th class="text-uppercase" style="font-weight: bolder;text-align: center;">
                             Edit
@@ -484,19 +440,19 @@ if (isset($_SESSION['AUID'])) {
                                 <?php echo $row['PUID'] ?>
                               </td>
                               <td>
-                                <?php echo $row['Name'] ?>&nbsp;<?php echo $row['Ram'] ?>&nbsp;<?php echo $row['Storage'] ?>
+                                <?php echo $row['CUID'] ?>
                               </td>
                               <td>
-                                ₹<?php echo $row['price'] ?>
+                                ₹<?php echo $row['pname'] ?>
                               </td>
                               <td style="text-align:  center;">
-                                <?php echo $row['quantity'] ?>
+                                <?php echo $row['description'] ?>
                               </td>
                               <td>
-                                <?php echo $row['type'] ?>
+                                <?php echo $row['price'] ?>
                               </td>
                               <td style="text-align: center;">
-                                <?php echo $row['cname'] ?>
+                                <?php echo $row['image'] ?>
                               </td>
                               <td>
                                 <button class="btn btn-outline-primary btn-sm btn-block" data-toggle="modal" data-target="#modal-<?php echo $row['PUID'] ?>">Edit</button>
@@ -514,13 +470,12 @@ if (isset($_SESSION['AUID'])) {
                                   <form method="POST">
                                     <div class="modal-body">
                                       <h5><b>Product ID</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['PUID'] ?>" name="proid" id="proid"> (disabled) </h5>
-                                      <h5><b>Product Name</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['Name'] ?>" name="proname"> </h5>
-                                      <h5><b>Product Ram</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['Ram'] ?>" name="proram"> </h5>
-                                      <h5><b>Product Storage</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['Storage'] ?>" name="prostorage"> </h5>
-                                      <h5><b>Product Price</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['price'] ?>" name="proprice"> </h5>
-                                      <h5><b>Product Quantity</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['quantity'] ?>" name="proquan"> </h5>
-                                      <h5><b>Product Type</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['type'] ?>" name="" id="protype"> (disabled) </h5>
-                                      <h5><b>Product Company</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['cname'] ?>" name="" id="procom"> (disabled)</h5>
+                                      <h5><b>Customer ID</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['CUID'] ?>" name="custid"> (disabled)</h5>
+                                      <h5><b>Product Name</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['Pname'] ?>" name="proname"> </h5>
+                                      <h5><b>Description</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['description'] ?>" name="prodescription"> </h5>
+                                      <h5><b> Price</b>&nbsp;:&nbsp;<input type="text" value="<?php echo $row['price'] ?>" name="proprice"> </h5>
+                                      
+                                      
                                     </div>
                                     <div class="modal-footer mx-auto">
                                       <a href="removeProduct.php?pid=<?php echo $row['PUID'] ?>" type="btn" class="btn btn-danger fw-bolder" style="float: left;">Remove Product</a>

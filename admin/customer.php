@@ -25,7 +25,7 @@ if (isset($_SESSION['AUID'])) {
     <link rel="icon" type="image/png" href="  assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-      Material Dashboard by Creative Tim
+    Admin panel
     </title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
@@ -49,7 +49,7 @@ if (isset($_SESSION['AUID'])) {
         Tip 2: you can also add an image using data-image tag
     -->
         <div class="logo"><a href="http://www.creative-tim.com" class="simple-text logo-normal">
-            Creative Tim
+           GadgetSmart
           </a></div>
         <div class="sidebar-wrapper">
           <ul class="nav">
@@ -75,6 +75,12 @@ if (isset($_SESSION['AUID'])) {
               <a class="nav-link" href="stocks.php">
                 <i class="material-icons">loyalty</i>
                 <p><b>Stock</b></p>
+              </a>
+            </li>
+            <li class="nav-item   ">
+              <a class="nav-link" href="stocks.php">
+                <i class="material-icons">shopping_bag</i>
+                <p><b>Accessories</b></p>
               </a>
             </li>
             <li class="nav-item   ">

@@ -9,6 +9,8 @@ if (isset($_SESSION['cuname'])) {
   $displayContent1 = "block";
 }
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +67,10 @@ if (isset($_SESSION['cuname'])) {
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
-
+      <form class="d-flex" method="GET" action="search.php">
+        <input class="form-control me-2" type="search"  name="s" placeholder="Search Product" aria-label="Search">
+        <button class="btn btn-light fw-bolder" type="submit" >Search</button>
+      </form>
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="index.html" style="font-weight: bolder;"><span>HOME</span></a></li>
@@ -212,7 +217,7 @@ if (isset($_SESSION['cuname'])) {
 
   <main id="main">
 
-  <section id="featured" class="featured">
+    <section id="featured" class="featured">
       <div class="row row-cols-1 row-cols-md-1 g-4">
         <div class="col">
           <div class="card" style="background-color: #f1f1f1;;padding-top: 20px;">
@@ -237,7 +242,7 @@ if (isset($_SESSION['cuname'])) {
                         <div class="col">
                           <div class="card" style="border: none;">
                             <div class="card-body" style="min-height: 90px;max-height: 90px;">
-                              <div class="card-title text-center" style="color: black;font-size: large;"><?php echo $row['Name'] ?> <?php echo $row['Ram']?> <?php echo $row['Storage'] ?></div>
+                              <div class="card-title text-center" style="color: black;font-size: large;"><?php echo $row['Name'] ?> <?php echo $row['Ram'] ?> <?php echo $row['Storage'] ?></div>
                             </div>
                           </div>
                         </div>
@@ -279,7 +284,7 @@ if (isset($_SESSION['cuname'])) {
                       $result11 = mysqli_query($con, $query11);
                       while ($row = mysqli_fetch_assoc($result11)) {
                       ?>
-                        <div class="swiper-slide"><a href="viewcompany.php?id=<?php echo $row['ComUID']?>"> <img src="admin/<?php echo $row['logo'] ?>" class="img-fluid" style="filter: none;" alt="mi.jpg"></a></div>
+                        <div class="swiper-slide"><a href="viewcompany.php?id=<?php echo $row['ComUID'] ?>"> <img src="admin/<?php echo $row['logo'] ?>" class="img-fluid" style="filter: none;" alt="mi.jpg"></a></div>
                       <?php
                       }
                       ?>
