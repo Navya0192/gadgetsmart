@@ -197,32 +197,47 @@ if (isset($_GET['s'])) {
                                                 <div>
                                                     <h6><b><u>Company</u></b></h6>
                                                     <div class="overflow-auto filters" style="padding-left: 5px;">
-                                                        <input class="comman_selector level" type="checkbox" id="level1" value="Beginner">
-                                                        <label for="level1">Beginner</label><br>
-                                                        <input class="comman_selector level" type="checkbox" id="level2" value="Intermediate">
-                                                        <label for="level2">Intermediate </label><br>
-                                                        <input class="comman_selector level" type="checkbox" id="level3" value="Expert">
-                                                        <label for="level3">Expert </label><br>
+                                                        <?php
+                                                        include('db.php');
+                                                        $query15 = "SELECT DISTINCT(sm.companyid),cm.Name FROM stock_master sm,company_master cm WHERE sm.companyid = cm.ComUID ";
+                                                        $result15 = mysqli_query($con, $query15);
+                                                        while ($row = mysqli_fetch_assoc($result15)) {
+                                                        ?>
+                                                            <input class="comman_selector company" type="checkbox" id="company-<?php echo $row['companyid'] ?>" value="<?php echo $row['companyid'] ?>">
+                                                            <label for="company-<?php echo $row['companyid'] ?>"><?php echo $row['Name'] ?></label><br>
+                                                        <?php
+                                                        }
+                                                        ?>
                                                     </div>
                                                     <hr style="color: grey;height: 3px;">
                                                     <h6><b><u>Ram</u></b></h6>
                                                     <div class="overflow-auto filters" style="padding-left: 5px;">
-                                                        <input class="comman_selector level" type="checkbox" id="level1" value="Beginner">
-                                                        <label for="level1">Beginner</label><br>
-                                                        <input class="comman_selector level" type="checkbox" id="level2" value="Intermediate">
-                                                        <label for="level2">Intermediate </label><br>
-                                                        <input class="comman_selector level" type="checkbox" id="level3" value="Expert">
-                                                        <label for="level3">Expert </label><br>
+                                                        <?php
+                                                        include('db.php');
+                                                        $query15 = "SELECT DISTINCT(`Ram`) FROM `stock_master` WHERE 1 ";
+                                                        $result15 = mysqli_query($con, $query15);
+                                                        while ($row = mysqli_fetch_assoc($result15)) {
+                                                        ?>
+                                                            <input class="comman_selector ram" type="checkbox" id="ram-<?php echo $row['Ram'] ?>" value="<?php echo $row['Ram'] ?>">
+                                                            <label for="ram-<?php echo $row['Ram'] ?>"><?php echo $row['Ram'] ?></label><br>
+                                                        <?php
+                                                        }
+                                                        ?>
                                                     </div>
                                                     <hr style="color: grey;height: 3px;">
                                                     <h6><b><u>Storage</u></b></h6>
                                                     <div class="overflow-auto filters" style="padding-left: 5px;">
-                                                        <input class="comman_selector level" type="checkbox" id="level1" value="Beginner">
-                                                        <label for="level1">Beginner</label><br>
-                                                        <input class="comman_selector level" type="checkbox" id="level2" value="Intermediate">
-                                                        <label for="level2">Intermediate </label><br>
-                                                        <input class="comman_selector level" type="checkbox" id="level3" value="Expert">
-                                                        <label for="level3">Expert </label><br>
+                                                        <?php
+                                                        include('db.php');
+                                                        $query15 = "SELECT DISTINCT(`Storage`) FROM `stock_master` WHERE 1 ";
+                                                        $result15 = mysqli_query($con, $query15);
+                                                        while ($row = mysqli_fetch_assoc($result15)) {
+                                                        ?>
+                                                            <input class="comman_selector storage" type="checkbox" id="Storage-<?php echo $row['Storage'] ?>" value="<?php echo $row['Storage'] ?>">
+                                                            <label for="Storage-<?php echo $row['Storage'] ?>"><?php echo $row['Storage'] ?></label><br>
+                                                        <?php
+                                                        }
+                                                        ?>
                                                     </div>
                                                     <hr style="color: grey;height: 3px;">
                                                 </div>
@@ -239,7 +254,7 @@ if (isset($_GET['s'])) {
                                                 <div class="row row-cols-1 row-cols-md-1 g-2">
                                                     <?php
                                                     include('db.php');
-                                                    $query15 = "SELECT * FROM `stock_master` WHERE quantity > 0 and Name like '%" . $search . "%'  ";
+                                                    $query15 = "SELECT sm.PUID, sm.Name, sm.Imagepath, sm.price, sm.type, sm.quantity, sm.companyid, sm.Ram, sm.Storage,cm.Name as cname FROM stock_master sm, company_master cm WHERE sm.companyid = cm.ComUID and sm.quantity > 0 and sm.Name like '%" . $search . "%'  ";
                                                     $result15 = mysqli_query($con, $query15);
                                                     while ($row = mysqli_fetch_assoc($result15)) {
                                                     ?>
@@ -254,7 +269,7 @@ if (isset($_GET['s'])) {
                                                                     <div class="col-md-9 p-2">
                                                                         <div class="card h-100" style="border: none;">
                                                                             <div class="card-body">
-                                                                                <h5 class="card-title"><b><?php echo $row['Name'] ?><br><span style="font-size: medium;color: grey;">Xiaomi</span></b></h5>
+                                                                                <h5 class="card-title"><b><?php echo $row['Name'] ?><br><span style="font-size: medium;color: grey;"><?php echo $row['cname'] ?></span></b></h5>
                                                                                 <p class="card-text">
                                                                                 <table>
                                                                                     <tr>
@@ -277,8 +292,73 @@ if (isset($_GET['s'])) {
                                                                                     </tr>
                                                                                 </table>
                                                                                 </p>
-                                                                                <p><span style="font-size:30px"><b>Price :</b> <span style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">₹<?php echo $row['price'] ?></span></span>
-                                                                                    <button type="button" class="btn btn-dark" style="float: right;"><b>Buy now</b></button>
+                                                                                <p><span style="font-size:30px"><b>Price :</b> <span style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">₹<span id="<?php echo $row['PUID']?>" value="<?php echo $row['price'] ?>"><?php echo $row['price'] ?></span></span></span>
+                                                                                    <button type="button" id="rzp-button-<?php echo $row['PUID'] ?> " value="<?php echo $row['price'] ?>" class="btn btn-dark" style="float: right;"><b>Buy now</b><input style="display: none;" type="text" id="rzp-button-<?php echo $row['PUID'] ?>" value="<?php echo $row['price'] ?>"></button>
+                                                                                    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                                                                                    <script src="vendor/jquery/jquery.min.js"></script>
+                                                                                    <script>
+                                                                                    var tempprice = document.getElementById('rzp-button-<?php echo $row['PUID'] ?>').value;
+                                                                                        var price = parseInt(tempprice);
+
+
+                                                                                        var options = {
+
+                                                                                            "key": "rzp_test_dIgxaKmIRz2ttZ", // Enter the Key ID generated from the Dashboard
+                                                                                            "amount": price * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                                                                                            "currency": "INR",
+                                                                                            "name": "Gadget Smart",
+                                                                                            "description": "Test Transaction",
+                                                                                            "image": "https://example.com/your_logo",
+                                                                                            "handler": function(response) {
+                                                                                                jQuery.ajax({
+                                                                                                    // type:'GET',
+                                                                                                    // url:'addcourseDB.php',
+                                                                                                    // data:"payment_id="+response.razorpay_payment_id+"",
+                                                                                                    success: function(result) {
+                                                                                                        // 
+                                                                                                    }
+                                                                                                });
+
+                                                                                                // alert(response.razorpay_payment_id);
+                                                                                                // alert(response.razorpay_signature)
+                                                                                            },
+                                                                                            // "prefill": {
+                                                                                            //     "name": "",
+                                                                                            //     "email": "",
+                                                                                            //     "contact": ""
+                                                                                            // },
+                                                                                            "notes": {
+                                                                                                "address": "Razorpay Corporate Office"
+                                                                                            }
+                                                                                            // "theme": {
+                                                                                            //     "color": "#3399cc"
+                                                                                            // }
+                                                                                        };
+                                                                                        var rzp1 = new Razorpay(options);
+                                                                                        rzp1.on('payment.failed', function(response) {
+                                                                                            jQuery.ajax({
+                                                                                                // type:'GET',
+                                                                                                // url:'addcourseDB.php',
+                                                                                                // data:"payment_id="+response.razorpay_payment_id+"",
+                                                                                                success: function(result) {
+
+                                                                                                }
+                                                                                            });
+
+                                                                                            // alert(response.error.code);
+                                                                                            // alert(response.error.description);
+                                                                                            // alert(response.error.source);
+                                                                                            // alert(response.error.step);
+                                                                                            // alert(response.error.reason);
+                                                                                            // alert(response.error.metadata.order_id);
+                                                                                            // alert(response.error.metadata.payment_id);
+                                                                                        });
+                                                                                        document.getElementById('rzp-button-<?php echo $row['PUID'] ?>').onclick = function(e) {
+                                                                                            
+                                                                                            rzp1.open();
+                                                                                            e.preventDefault();
+                                                                                        }
+                                                                                    </script>
                                                                                 </p>
                                                                             </div>
                                                                         </div>
