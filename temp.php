@@ -1,0 +1,2 @@
+<h6 class="card-title text-center" style="color: black;"><?php echo $row['Name'] ?> <?php echo $row['Ram'] ?> <?php echo $row['Storage'] ?></h6>
+                        <p class="card-title text-center" style="color: black;font-family: Arial, Helvetica, sans-serif;"><b style="color: #7B1FA2;">Price :</b>₹ <?php echo $row['price'] ?></p>
