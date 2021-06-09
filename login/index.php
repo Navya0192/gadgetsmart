@@ -10,6 +10,10 @@ if (isset($_POST['submit'])) {
   $result2 = mysqli_query($con, $query2);
   if ($row = mysqli_fetch_assoc($result2)) {
     $_SESSION['cuname'] = $uname;
+    $_SESSION['custid'] = $row['CUID'];
+    $_SESSION['email'] = $row['email'];
+    $_SESSION['phone'] = $row['Mobile'];
+    $_SESSION['name'] = $row['Name'];
     header("location:../index.php?login=0");
   }else{
     header("location:index.php?loginvalid=0");

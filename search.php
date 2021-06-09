@@ -8,10 +8,15 @@ if (isset($_GET['s'])) {
     if (isset($_SESSION['cuname'])) {
         $displayContent = "block";
         $displayContent1 = "none";
+        $contentBlock = "enabled";
     } else {
         $displayContent = "none";
         $displayContent1 = "block";
+        $contentBlock = "Disabled";
     }
+    $custEmail = $_SESSION['email'] ;
+    $custMobile = $_SESSION['phone'] ;
+    $custName = $_SESSION['name'] ;
 
 
 ?>
@@ -251,7 +256,7 @@ if (isset($_GET['s'])) {
                                                 <p style="color: black;float: left;font-size: medium;font-family: Bree Serif;"><b>SEARCH RESULTS</b></p>
                                                 <br>
                                                 <hr style="background-color: black;height: 4px;">
-                                                <div class="row row-cols-1 row-cols-md-1 g-2">
+                                                <div class="row row-cols-1 row-cols-md-1 g-2 filter_data1">
                                                     <?php
                                                     include('db.php');
                                                     $query15 = "SELECT sm.PUID, sm.Name, sm.Imagepath, sm.price, sm.type, sm.quantity, sm.companyid, sm.Ram, sm.Storage,cm.Name as cname FROM stock_master sm, company_master cm WHERE sm.companyid = cm.ComUID and sm.quantity > 0 and sm.Name like '%" . $search . "%'  ";
@@ -292,73 +297,9 @@ if (isset($_GET['s'])) {
                                                                                     </tr>
                                                                                 </table>
                                                                                 </p>
-                                                                                <p><span style="font-size:30px"><b>Price :</b> <span style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">₹<span id="<?php echo $row['PUID']?>" value="<?php echo $row['price'] ?>"><?php echo $row['price'] ?></span></span></span>
-                                                                                    <button type="button" id="rzp-button-<?php echo $row['PUID'] ?> " value="<?php echo $row['price'] ?>" class="btn btn-dark" style="float: right;"><b>Buy now</b><input style="display: none;" type="text" id="rzp-button-<?php echo $row['PUID'] ?>" value="<?php echo $row['price'] ?>"></button>
-                                                                                    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-                                                                                    <script src="vendor/jquery/jquery.min.js"></script>
-                                                                                    <script>
-                                                                                    var tempprice = document.getElementById('rzp-button-<?php echo $row['PUID'] ?>').value;
-                                                                                        var price = parseInt(tempprice);
+                                                                                <p><span style="font-size:30px"><b>Price :</b> <span style="font-family: Arial, Helvetica, sans-serif;font-weight: bolder;">₹<span id="<?php echo $row['PUID'] ?>" value="<?php echo $row['price'] ?>"><?php echo $row['price'] ?></span></span></span>
+                                                                                    <button type="button" class="btn btn-dark" value="<?php echo $row['price'] ?>" id="<?php echo $row['PUID'] ?>" onClick="reply_click(this.value,this.id)" style="float: right;" <?php echo $contentBlock  ?>><b>Buy Directly</b></button>
 
-
-                                                                                        var options = {
-
-                                                                                            "key": "rzp_test_dIgxaKmIRz2ttZ", // Enter the Key ID generated from the Dashboard
-                                                                                            "amount": price * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-                                                                                            "currency": "INR",
-                                                                                            "name": "Gadget Smart",
-                                                                                            "description": "Test Transaction",
-                                                                                            "image": "https://example.com/your_logo",
-                                                                                            "handler": function(response) {
-                                                                                                jQuery.ajax({
-                                                                                                    // type:'GET',
-                                                                                                    // url:'addcourseDB.php',
-                                                                                                    // data:"payment_id="+response.razorpay_payment_id+"",
-                                                                                                    success: function(result) {
-                                                                                                        // 
-                                                                                                    }
-                                                                                                });
-
-                                                                                                // alert(response.razorpay_payment_id);
-                                                                                                // alert(response.razorpay_signature)
-                                                                                            },
-                                                                                            // "prefill": {
-                                                                                            //     "name": "",
-                                                                                            //     "email": "",
-                                                                                            //     "contact": ""
-                                                                                            // },
-                                                                                            "notes": {
-                                                                                                "address": "Razorpay Corporate Office"
-                                                                                            }
-                                                                                            // "theme": {
-                                                                                            //     "color": "#3399cc"
-                                                                                            // }
-                                                                                        };
-                                                                                        var rzp1 = new Razorpay(options);
-                                                                                        rzp1.on('payment.failed', function(response) {
-                                                                                            jQuery.ajax({
-                                                                                                // type:'GET',
-                                                                                                // url:'addcourseDB.php',
-                                                                                                // data:"payment_id="+response.razorpay_payment_id+"",
-                                                                                                success: function(result) {
-
-                                                                                                }
-                                                                                            });
-
-                                                                                            // alert(response.error.code);
-                                                                                            // alert(response.error.description);
-                                                                                            // alert(response.error.source);
-                                                                                            // alert(response.error.step);
-                                                                                            // alert(response.error.reason);
-                                                                                            // alert(response.error.metadata.order_id);
-                                                                                            // alert(response.error.metadata.payment_id);
-                                                                                        });
-                                                                                        document.getElementById('rzp-button-<?php echo $row['PUID'] ?>').onclick = function(e) {
-                                                                                            
-                                                                                            rzp1.open();
-                                                                                            e.preventDefault();
-                                                                                        }
-                                                                                    </script>
                                                                                 </p>
                                                                             </div>
                                                                         </div>
@@ -485,6 +426,112 @@ if (isset($_GET['s'])) {
 
         <!-- Template Main JS File -->
         <script src="assets/js/main.js"></script>
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script>
+            
+            var options = {
+                
+                "key": "rzp_test_dIgxaKmIRz2ttZ", // Enter the Key ID generated from the Dashboard
+                // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "name": "Gadget Smart",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",//Url for logo company
+                "handler": function(response) {
+                    jQuery.ajax({
+                        // type:'GET',
+                        // url:'tempOrder.php',
+                        // data:"payment_id="+response.razorpay_payment_id+"",
+                        success: function(result) {
+                            window.location.href = "addOrderPayment.php?payment_id="+ response.razorpay_payment_id+"&proid="+options.proid+"&method=razorpay&amount="+options.amountSQL+"";
+                        }
+                    });
+
+                    // alert(response.razorpay_payment_id);
+                    // alert(response.razorpay_signature)
+                },
+                "prefill": {
+                    "name": "<?php echo $custName ?>",
+                    "email": "<?php echo $custEmail?>",
+                    "contact": "<?php echo $custMobile ?>"
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                }
+                // "theme": {
+                //     "color": "#3399cc"
+                // }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.on('payment.failed', function(response) {
+                jQuery.ajax({
+                    // type:'GET',
+                    // url:'addcourseDB.php',
+                    // data:"payment_id="+response.razorpay_payment_id+"",
+                    success: function(result) {
+                        header("location:index.php");
+                    }
+                });
+
+                // alert(response.error.code);
+                // alert(response.error.description);
+                // alert(response.error.source);
+                // alert(response.error.step);
+                // alert(response.error.reason);
+                // alert(response.error.metadata.order_id);
+                // alert(response.error.metadata.payment_id);
+            });
+            function reply_click(clicked_id,puid) {
+                options.amount = clicked_id * 100;
+                options.amountSQL = clicked_id;
+                options.proid = puid;
+                var rzp1 = new Razorpay(options);
+                rzp1.open();
+            }
+        </script>
+
+
+        <!-- Query Filter -->
+        <script>
+        $(document).ready(function() {
+            function filter_data() {
+                var action = 'fetch_data';
+                var search = '<?php echo $search ?>';
+                var ram = get_filter('ram');
+                var company = get_filter('company');
+                var storage = get_filter('storage');
+                $.ajax({
+                    url: "fetchData.php",
+                    method: "POST",
+                    data: {
+                        search: search,
+                        action: action,
+                        ram: ram,
+                        company: company,
+                        storage: storage
+                    },
+                    success: function(data) {
+                        $('.filter_data1').html(data);
+                    }
+                })
+            }
+
+            function get_filter(class_name) {
+                var filter = [];
+                $('.' + class_name + ':checked').each(function() {
+                    filter.push($(this).val());
+                });
+                return filter;
+            }
+
+            $('.comman_selector').click(function() {
+                filter_data();
+            });
+
+        });
+    </script>
 
     </body>
 
