@@ -35,7 +35,12 @@ if (mysqli_query($con, $sql1)) {
     $sql98 = "INSERT INTO `payment`(`payment_id`, `referenceNumber`, `custID`, `towards`, `amount`, `gDate`) 
     VALUES ('" . $paymentid . "',UUID(),'" . $custid . "','Purchase - " . $proName . "','" . $amount . "','" . $datetime . "')";
     if (mysqli_query($con, $sql98)) {
-      header("location:order.php?success=0");
+      include('db.php');
+      $sql97 = "INSERT INTO `notification_master`(`text`, `status`) 
+      VALUES ('Order for - ".$proName." - ".$datetime."','In Transit')";
+      if (mysqli_query($con, $sql97)) {
+        header("location:order.php?success=0");
+      }
     } else {
       header('Location: ' . $_SERVER['HTTP_REFERER'] . "&failed=0");
     }

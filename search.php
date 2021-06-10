@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+
+
 if (isset($_GET['s'])) {
     $search = $_GET['s'];
 
@@ -9,15 +11,19 @@ if (isset($_GET['s'])) {
         $displayContent = "block";
         $displayContent1 = "none";
         $contentBlock = "enabled";
+        $custEmail = $_SESSION['email'] ;
+        $custMobile = $_SESSION['phone'] ;
+        $custName = $_SESSION['name'] ;
+    
     } else {
         $displayContent = "none";
         $displayContent1 = "block";
         $contentBlock = "Disabled";
+        $custEmail = "abc" ;
+$custMobile = "abc" ;
+$custName ="abc" ;
     }
-    $custEmail = $_SESSION['email'] ;
-    $custMobile = $_SESSION['phone'] ;
-    $custName = $_SESSION['name'] ;
-
+   
 
 ?>
 
