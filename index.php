@@ -71,6 +71,7 @@ if (isset($_SESSION['cuname'])) {
         <input class="form-control me-2" type="search"  name="s" placeholder="Search Product" aria-label="Search">
         <button class="btn btn-light fw-bolder" type="submit" >Search</button>
       </form>
+     <!-- navigation bar -->
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="index.html" style="font-weight: bolder;"><span>HOME</span></a></li>
@@ -116,15 +117,14 @@ if (isset($_SESSION['cuname'])) {
             </ul>
           </li>
 
-          <li><a href="services.html" style="font-weight: bolder;">SERVICES</a></li>
-          <li class="dropdown"><a href="pricing.html" style="font-weight: bolder;"><span>PRICE RANGE</span>
+          <!--<li><a href="services.html" style="font-weight: bolder;">SERVICES</a></li>-->
+          <li class="dropdown"><a href="pricing.html" style="font-weight: bolder;"><span>ACCOUNT</span>
               <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Below ₹ 10,000</span></a></li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 10,000 - ₹ 20,000 </span></a></li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 20,000 - ₹ 30,000</span></a></li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 30,000 -₹ 40,000</span></a></li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Above ₹ 40,000</span></a></li>
+              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Order</span></a></li>
+              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Payment </span></a></li>
+              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Profile</span></a></li>
+             
             </ul>
           </li>
 
@@ -221,7 +221,7 @@ if (isset($_SESSION['cuname'])) {
       <div class="row row-cols-1 row-cols-md-1 g-4">
         <div class="col">
           <div class="card" style="background-color: #f1f1f1;;padding-top: 20px;">
-            <h5 style="padding-left:30px; font-weight: bolder;font-family: Berkshire Swash;" class="text-dark">Newly Releases
+            <h5 style="padding-left:30px; font-weight: bolder;font-family: Times New Roman;" class="text-dark">Newly Releases
             </h5>
             <div class="card-body">
               <div class="row row-cols-1 row-cols-md-5 g-4">

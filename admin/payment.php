@@ -78,24 +78,18 @@ if (isset($_SESSION['AUID'])) {
                             </a>
                         </li>
                         <li class="nav-item   ">
-                            <a class="nav-link" href="stocks.php">
-                                <i class="material-icons">shopping_bag</i>
-                                <p><b>Accessories</b></p>
-                            </a>
-                        </li>
-                        <li class="nav-item  ">
                             <a class="nav-link" href="order.php">
                                 <i class="material-icons">list</i>
                                 <p><b>Order</b></p>
                             </a>
                         </li>
                         <li class="nav-item   ">
-                            <a class="nav-link" href="delivery.html">
+                            <a class="nav-link" href="delivery.php">
                                 <i class="material-icons">upcoming</i>
                                 <p><b>Delivery</b></p>
                             </a>
                         </li>
-                        <li class="nav-item active ">
+                        <li class="nav-item active">
                             <a class="nav-link" href="payment.php">
                                 <i class="material-icons">payments</i>
                                 <p><b>Payments</b></p>

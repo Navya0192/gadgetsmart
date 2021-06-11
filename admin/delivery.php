@@ -59,7 +59,8 @@ if (isset($_SESSION['AUID'])) {
                                 <p><b>Dashboard</b></p>
                             </a>
                         </li>
-                        <li class="nav-item  "> <a class="nav-link" href="customer.php">
+                        <li class="nav-item  ">
+                            <a class="nav-link" href="customer.php">
                                 <i class="material-icons">person</i>
                                 <p><b>Customer</b></p>
                             </a>
@@ -76,13 +77,13 @@ if (isset($_SESSION['AUID'])) {
                                 <p><b>Stock</b></p>
                             </a>
                         </li>
-                        <li class="nav-item  active ">
+                        <li class="nav-item   ">
                             <a class="nav-link" href="order.php">
                                 <i class="material-icons">list</i>
                                 <p><b>Order</b></p>
                             </a>
                         </li>
-                        <li class="nav-item   ">
+                        <li class="nav-item  active ">
                             <a class="nav-link" href="delivery.php">
                                 <i class="material-icons">upcoming</i>
                                 <p><b>Delivery</b></p>
@@ -102,8 +103,9 @@ if (isset($_SESSION['AUID'])) {
                 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
                     <div class="container-fluid">
                         <div class="navbar-wrapper">
-                            <a class="navbar-brand" href="javascript:;" style="font-family: Recursive;font-size: larger;">Order Details</a>
+                            <a class="navbar-brand" href="javascript:;" style="font-family: Recursive;font-size: larger;">Delivery Details</a>
                         </div>
+                        <!-- // navigation -->
                         <?php include('components/navbar.php') ?>
                     </div>
                 </nav>
@@ -118,22 +120,15 @@ if (isset($_SESSION['AUID'])) {
                                             <table class="table">
                                                 <thead class=" text-primary">
                                                     <th class="text-uppercase" style="font-weight: bolder;">
+                                                        Delivery ID
+                                                    </th>
+                                                    <th class="text-uppercase" style="font-weight: bolder;">
                                                         Order ID
                                                     </th>
                                                     <th class="text-uppercase" style="font-weight: bolder;">
-                                                        Customer
+                                                        Address
                                                     </th>
                                                     <th class="text-uppercase" style="font-weight: bolder;">
-                                                        Payment ID
-                                                    </th>
-                                                    <th class="text-uppercase" style="font-weight: bolder;">
-                                                        Product
-                                                    </th>
-
-                                                    <th class="text-uppercase" style="text-align: center;font-weight: bolder;">
-                                                        Receipt
-                                                    </th>
-                                                    <th class="text-uppercase" style="text-align: center;font-weight: bolder;">
                                                         Status
                                                     </th>
                                                     <th class="text-uppercase" style="text-align: center;font-weight: bolder;">
@@ -143,100 +138,54 @@ if (isset($_SESSION['AUID'])) {
                                                 <tbody>
                                                     <?php
                                                     include('db.php');
-                                                    $query = "SELECT om.OUID, om.Method, om.payment_id, om.towards, om.status, om.custID, cm.Name,om.num FROM order_master om, customer_master cm WHERE om.custID = cm.CUID ORDER BY om.num desc ";
+                                                    $query = "SELECT * FROM `delivery_master` WHERE 1";
                                                     $result = mysqli_query($con, $query);
                                                     while ($row = mysqli_fetch_assoc($result)) {
                                                     ?>
                                                         <tr>
                                                             <td>
+                                                                <?php echo $row['DUID'] ?>
+                                                            </td>
+                                                            <td>
                                                                 <?php echo $row['OUID'] ?>
                                                             </td>
-                                                            <td style="text-align: center;">
-                                                                <?php echo $row['Name'] ?>
+                                                            <td>
+                                                                <?php echo $row['DAddress'] ?>, <?php echo $row['Dcity'] ?>, <?php echo $row['Dstate'] ?>,, <?php echo $row['Dpincode'] ?>
                                                             </td>
                                                             <td>
-                                                                <?php echo $row['payment_id'] ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php echo $row['towards'] ?>
-                                                            </td>
-                                                            <td>
-                                                                <a href="ReceiptGenerator.php?id=<?php echo $row['payment_id']  ?>" type="btn" class="btn btn-outline-primary btn-sm btn-block"><b>Download</b></a>
-                                                            </td>
-                                                            <td style="text-align: center;">
                                                                 <?php
                                                                 $Pstatus = $row['status'];
-                                                                if ($Pstatus == "In Transit") {
+                                                                if ($Pstatus == "Preparing for Delivery") {
                                                                 ?>
                                                                     <h5 class="text-info"><b><?php echo $Pstatus ?></b></h5>
                                                                 <?php
-                                                                } else if ($Pstatus == "Preparing for Delivery") {
-                                                                ?>
-                                                                    <h5 class="text-warning"><b><?php echo $Pstatus ?></b></h5>
-                                                                <?php
-
-                                                                } else if ($Pstatus == "Order Rejected") {
-                                                                ?>
-                                                                    <h5 class="text-danger"><b>Rejected</b></h5>
-                                                                <?php
 
                                                                 } else if ($Pstatus == "Out For Delivery") {
                                                                 ?>
                                                                     <h5 class="text-secondary"><b>Out For Delivery</b></h5>
                                                                 <?php
 
-                                                                } else if ($Pstatus == "Delivered") {
-                                                                ?>
-                                                                    <h5 class="text-success"><b>Delivered</b></h5>
-                                                                <?php
-
-                                                                } else {
-                                                                ?>
-                                                                    <h5><b><?php echo $Pstatus ?></b></h5>
-                                                                <?php
-
                                                                 }
                                                                 ?>
-
                                                             </td>
-                                                            <td style="text-align: center;">
+                                                            <td>
                                                                 <?php
                                                                 $Pstatus = $row['status'];
-                                                                if ($Pstatus == "In Transit") {
+                                                                if ($Pstatus == "Preparing for Delivery") {
                                                                 ?>
-                                                                    <a href="AcceptOrder.php?id=<?php echo $row['OUID']  ?>" type="btn" class="btn btn-success btn-sm btn-block"><b>Accept</b></a>
-                                                                    or<br>
-                                                                    <a href="RejectOrder.php?id=<?php echo $row['OUID']  ?>" type="btn" class="btn btn-danger btn-sm btn-block"><b>Reject</b></a>
-                                                                <?php
-                                                                } else if ($Pstatus == "Preparing for Delivery") {
-                                                                ?>
-                                                                    <h5><b>In Process with Delivery</b></h5>
-                                                                <?php
-                                                                } else if ($Pstatus == "Order Rejected") {
-                                                                ?>
-                                                                    <h5 class="text-danger"><b>Rejected</b></h5>
+                                                                    <a href="OFDelivery.php?id=<?php echo $row['OUID']  ?>" type="btn" class="btn btn-warning btn-sm btn-block"><b>OUT for Delivery</b></a>
                                                                 <?php
 
                                                                 } else if ($Pstatus == "Out For Delivery") {
                                                                 ?>
-                                                                    <h5 class="text-secondary"><b>Out For Delivery</b></h5>
-                                                                <?php
+                                                                    <a href="ProductDelivered.php?id=<?php echo $row['OUID']  ?>" type="btn" class="btn btn-success btn-sm btn-block"><b>Delivery</b></a>
 
-                                                                } else if ($Pstatus == "Delivered") {
-                                                                ?>
-                                                                    <h5 class="text-success"><b>Delivered</b></h5>
-                                                                <?php
-
-                                                                } else {
-                                                                ?>
-                                                                    <h5><b>Delivered</b></h5>
                                                                 <?php
 
                                                                 }
                                                                 ?>
 
                                                             </td>
-
                                                         </tr>
                                                     <?php
                                                     }

@@ -186,3 +186,4 @@ $mpdf = new \Mpdf\Mpdf();
 $mpdf->WriteHTML($html);
 $mpdf->output('Receipt - '.$invoice_id.' ','D');
 
+

@@ -129,15 +129,14 @@ $custName ="abc" ;
                             </ul>
                         </li>
 
-                        <li><a href="services.html" style="font-weight: bolder;">SERVICES</a></li>
-                        <li class="dropdown"><a href="pricing.html" style="font-weight: bolder;"><span>PRICE RANGE</span>
+                        <!--<li><a href="services.html" style="font-weight: bolder;">SERVICES</a></li>-->
+                        <li class="dropdown"><a href="pricing.html" style="font-weight: bolder;"><span>ACCOUNT</span>
                                 <i class="bi bi-chevron-down"></i></a>
                             <ul>
-                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Below ₹ 10,000</span></a></li>
-                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 10,000 - ₹ 20,000 </span></a></li>
-                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 20,000 - ₹ 30,000</span></a></li>
-                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 30,000 -₹ 40,000</span></a></li>
-                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Above ₹ 40,000</span></a></li>
+                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Order</span></a></li>
+                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Payment </span></a></li>
+                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Profile</span></a></li>
+                             
                             </ul>
                         </li>
 

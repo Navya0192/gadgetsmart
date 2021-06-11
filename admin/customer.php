@@ -72,51 +72,29 @@ if (isset($_SESSION['AUID'])) {
               </a>
             </li>
             <li class="nav-item   ">
-              <a class="nav-link" href="stocks.php">
-                <i class="material-icons">loyalty</i>
-                <p><b>Stock</b></p>
-              </a>
-            </li>
+            <a class="nav-link" href="stocks.php">
+              <i class="material-icons">loyalty</i>
+              <p><b>Stock</b></p>
+            </a>
+          </li>
             <li class="nav-item   ">
-              <a class="nav-link" href="stocks.php">
-                <i class="material-icons">shopping_bag</i>
-                <p><b>Accessories</b></p>
-              </a>
-            </li>
-            <li class="nav-item   ">
-              <a class="nav-link" href="order.php">
-                <i class="material-icons">list</i>
-                <p><b>Order</b></p>
-              </a>
-            </li>
-            <li class="nav-item   ">
-              <a class="nav-link" href="delivery.html">
-                <i class="material-icons">upcoming</i>
-                <p><b>Delivery</b></p>
-              </a>
-            </li>
-            <!-- <li class="nav-item ">
-              <a class="nav-link" href="./user.html">
-                <i class="material-icons">payments</i>
-                <p><b>Payments</b></p>
-              </a>
-            </li> -->
-            <li class="nav-item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3" aria-expanded="true" aria-controls="collapsePages2">
-                <i class="material-icons">payments</i>
-                <p><b>Payments</b></p>
-              </a>
-              <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                  <a class="nav-link" href="delivery.html">
-                    <p class="text-center"><b>Received</b></p>
-                  </a>
-                  <a class="nav-link" href="delivery.html">
-                    <p class="text-center"><b>Failed</b></p>
-                  </a>
-                </div>
-              </div>
-            </li>
+            <a class="nav-link" href="order.php">
+              <i class="material-icons">list</i>
+              <p><b>Order</b></p>
+            </a>
+          </li>
+          <li class="nav-item   ">
+            <a class="nav-link" href="delivery.php">
+              <i class="material-icons">upcoming</i>
+              <p><b>Delivery</b></p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="payment.php">
+              <i class="material-icons">payments</i>
+              <p><b>Payments</b></p>
+            </a>
+          </li>
           </ul>
         </div>
       </div>
