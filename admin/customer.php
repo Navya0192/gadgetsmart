@@ -168,18 +168,24 @@ if (isset($_SESSION['AUID'])) {
                                       </button>
                                     </div>
                                     <div class="modal-body">
-                                      Name : <?php echo $row['Name'] ?>
+                                      <h3><span class="font-weight-bold" style="color: black;">Customer ID : </span><?php echo $row['CUID'] ?></h3>
+                                      <h3><span class="font-weight-bold" style="color: black;">Name : </span><?php echo $row['Name'] ?></h3>
+                                      <h3><span class="font-weight-bold" style="color: black;">Gender : </span><?php echo $row['Gender'] ?></h3>
+                                      <h3><span class="font-weight-bold" style="color: black;">DOB : </span><?php echo $row['DOB'] ?></h3>
+                                      <h3><span class="font-weight-bold" style="color: black;">Mobile : </span>+91 <?php echo $row['Mobile'] ?></h3>
+                                      <h3><span class="font-weight-bold" style="color: black;">Email : </span><?php echo $row['email'] ?></h3>
+                                      <h3><span class="font-weight-bold" style="color: black;">Address : </span><?php echo $row['Address']?>, <?php echo $row['city']?>, <?php echo $row['state']?>, <?php echo $row['pincode'] ?></h3>
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                      <button type="button" class="btn btn-primary">Save changes</button>
+                                      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </tr>
                           <?php
-                          }
+                          } 
                           if (mysqli_num_rows($result) == 0) {
                           ?>
                             <tr>

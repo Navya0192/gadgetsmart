@@ -55,11 +55,12 @@
         </p>
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-        <a class="dropdown-item" href="#">Profile</a>
-        <a class="dropdown-item" href="#">Settings</a>
+        <!-- <a class="dropdown-item" href="#">Profile</a> -->
+        <a class="dropdown-item" href="settings.php">Settings</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Log out</a>
+        <a class="dropdown-item" href="logout.php">Logout</a>
       </div>
     </li>
   </ul>
 </div>
+

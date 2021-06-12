@@ -2,6 +2,83 @@
 session_start();
 if (isset($_SESSION['AUID'])) {
 
+  include('db.php');
+  $query2 = "SELECT SUM(`quantity`)as sumqty from stock_master";
+  $result2 = mysqli_query($con, $query2);
+  if ($row = mysqli_fetch_assoc($result2)) {
+    $sumqty = $row['sumqty'];
+  } else {
+    $sumqty = 0;
+  }
+
+
+  include('db.php');
+  $query2 = "SELECT sum(`amount`) as tpay from payment";
+  $result2 = mysqli_query($con, $query2);
+  if ($row = mysqli_fetch_assoc($result2)) {
+    $totalRevenue = $row['tpay'];
+  } else {
+    $totalRevenue = 0;
+  }
+
+  include('db.php');
+  $query2 = "SELECT count(`OUID`)as DCount FROM `delivery_master` WHERE 1 ";
+  $result2 = mysqli_query($con, $query2);
+  if ($row = mysqli_fetch_assoc($result2)) {
+    $dCount = $row['DCount'];
+  } else {
+    $dCount = 0;
+  }
+
+  include('db.php');
+  $query2 = "SELECT count(`CUID`)as custcount FROM `customer_master` WHERE 1 ";
+  $result2 = mysqli_query($con, $query2);
+  if ($row = mysqli_fetch_assoc($result2)) {
+    $activeCust = $row['custcount'];
+  } else {
+    $activeCust = 0;
+  }
+
+  $year = date("Y");
+  $month = date("m");
+
+  $dateObj   = DateTime::createFromFormat('!m', $month);
+  $monthName = $dateObj->format('F');
+  // echo ($monthName);
+  // echo("".$year."/01/01");
+  include('db.php');
+  $sql3 = "SELECT
+    COUNT(CASE WHEN `RegDate` BETWEEN '" . $year . "/01/01' AND '" . $year . "/01/31' THEN 1 END) AS Jan,
+    COUNT(CASE WHEN `RegDate` BETWEEN '" . $year . "/02/01' AND '" . $year . "/02/31' THEN 1 END) AS Feb,
+    COUNT(CASE WHEN `RegDate` BETWEEN '" . $year . "/03/01' AND '" . $year . "/03/31' THEN 1 END) AS Mar,
+    COUNT(CASE WHEN `RegDate` BETWEEN '" . $year . "/04/01' AND '" . $year . "/04/31' THEN 1 END) AS Apr,
+    COUNT(CASE WHEN `RegDate` BETWEEN '" . $year . "/05/01' AND '" . $year . "/05/31' THEN 1 END) AS May,
+    COUNT(CASE WHEN `RegDate` BETWEEN '" . $year . "/06/01' AND '" . $year . "/06/31' THEN 1 END) AS Jun,
+    COUNT(CASE WHEN `RegDate` BETWEEN '" . $year . "/07/01' AND '" . $year . "/07/31' THEN 1 END) AS Jul,
+    COUNT(CASE WHEN `RegDate` BETWEEN '" . $year . "/08/01' AND '" . $year . "/08/31' THEN 1 END) AS Aug,
+    COUNT(CASE WHEN `RegDate` BETWEEN '" . $year . "/09/01' AND '" . $year . "/09/31' THEN 1 END) AS Sep,
+    COUNT(CASE WHEN `RegDate` BETWEEN '" . $year . "/10/01' AND '" . $year . "/10/31' THEN 1 END) AS Oct,
+    COUNT(CASE WHEN `RegDate` BETWEEN '" . $year . "/11/01' AND '" . $year . "/11/31' THEN 1 END) AS Nov,
+    COUNT(CASE WHEN `RegDate` BETWEEN '" . $year . "/12/01' AND '" . $year . "/12/31' THEN 1 END) AS Dece
+FROM `order_master`";
+  $result4 = mysqli_query($con, $sql3);
+  $json = [];
+  while ($row = mysqli_fetch_assoc($result4)) {
+    $json[0] = $row['Jan'];
+    $json[1] = $row['Feb'];
+    $json[2] = $row['Mar'];
+    $json[3] = $row['Apr'];
+    $json[4] = $row['May'];
+    $json[5] = $row['Jun'];
+    $json[6] = $row['Jul'];
+    $json[7] = $row['Aug'];
+    $json[8] = $row['Sep'];
+    $json[9] = $row['Oct'];
+    $json[10] = $row['Nov'];
+    $json[11] = $row['Dece'];
+  }
+
+
 ?>
   <!DOCTYPE html>
   <html lang="en">
@@ -18,10 +95,13 @@ if (isset($_SESSION['AUID'])) {
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
     <!-- CSS Files -->
     <link href="  assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="  assets/demo/demo.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
   <body class="">
@@ -94,24 +174,21 @@ if (isset($_SESSION['AUID'])) {
         </nav>
         <!-- End Navbar -->
         <div class="content">
-          <div class="container-fluid">
+          <div class="container-fluid" style="margin-top:50px ;">
             <div class="row">
               <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                   <div class="card-header card-header-warning card-header-icon">
                     <div class="card-icon">
-                      <i class="material-icons">content_copy</i>
+                      <i class="material-icons">list</i>
                     </div>
-                    <p class="card-category">Used Space</p>
-                    <h3 class="card-title">49/50
-                      <small>GB</small>
+                    <p class="card-category " style="font-weight: bolder;">Stocks Available</p>
+                    <h3 class="card-title"><?php echo $sumqty ?>
+
                     </h3>
                   </div>
-                  <div class="card-footer">
-                    <div class="stats">
-                      <i class="material-icons text-danger">warning</i>
-                      <a href="javascript:;">Get More Space...</a>
-                    </div>
+                  <div class="card-footer" style="border:none;">
+                    &nbsp;
                   </div>
                 </div>
               </div>
@@ -119,31 +196,27 @@ if (isset($_SESSION['AUID'])) {
                 <div class="card card-stats">
                   <div class="card-header card-header-success card-header-icon">
                     <div class="card-icon">
-                      <i class="material-icons">store</i>
+                      <i class="material-icons">payments</i>
                     </div>
-                    <p class="card-category">Revenue</p>
-                    <h3 class="card-title">$34,245</h3>
+                    <p class="card-category " style="font-weight: bolder;">Revenue Generated</p>
+                    <h3 class="card-title">₹<?php echo number_format($totalRevenue) ?></h3>
                   </div>
-                  <div class="card-footer">
-                    <div class="stats">
-                      <i class="material-icons">date_range</i> Last 24 Hours
-                    </div>
+                  <div class="card-footer" style="border:none;">
+                    &nbsp;
                   </div>
                 </div>
               </div>
               <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                   <div class="card-header card-header-danger card-header-icon">
-                    <div class="card-icon">
-                      <i class="material-icons">info_outline</i>
+                    <div class="card-icon ">
+                      <i class="material-icons">upcoming</i>
                     </div>
-                    <p class="card-category">Fixed Issues</p>
-                    <h3 class="card-title">75</h3>
+                    <p class="card-category" style="font-weight: bolder;">Pending Delievery</p>
+                    <h3 class="card-title"><?php echo $dCount ?></h3>
                   </div>
-                  <div class="card-footer">
-                    <div class="stats">
-                      <i class="material-icons">local_offer</i> Tracked from Github
-                    </div>
+                  <div class="card-footer" style="border:none;">
+                    &nbsp;
                   </div>
                 </div>
               </div>
@@ -151,20 +224,18 @@ if (isset($_SESSION['AUID'])) {
                 <div class="card card-stats">
                   <div class="card-header card-header-info card-header-icon">
                     <div class="card-icon">
-                      <i class="fa fa-twitter"></i>
+                      <i class="material-icons">people</i>
                     </div>
-                    <p class="card-category">Followers</p>
-                    <h3 class="card-title">+245</h3>
+                    <p class="card-category " style="font-weight: bolder;">Active Customers</p>
+                    <h3 class="card-title"><?php echo $activeCust ?></h3>
                   </div>
-                  <div class="card-footer">
-                    <div class="stats">
-                      <i class="material-icons">update</i> Just Updated
-                    </div>
+                  <div class="card-footer" style="border:none;">
+                    &nbsp;
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-md-4">
                 <div class="card card-chart">
                   <div class="card-header card-header-success">
@@ -215,405 +286,80 @@ if (isset($_SESSION['AUID'])) {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
+
+            <!-- Charts on Dashboard -->
             <div class="row">
-              <div class="col-lg-6 col-md-12">
-                <div class="card">
-                  <div class="card-header card-header-tabs card-header-primary">
-                    <div class="nav-tabs-navigation">
-                      <div class="nav-tabs-wrapper">
-                        <span class="nav-tabs-title">Tasks:</span>
-                        <ul class="nav nav-tabs" data-tabs="tabs">
-                          <li class="nav-item">
-                            <a class="nav-link active" href="#profile" data-toggle="tab">
-                              <i class="material-icons">bug_report</i> Bugs
-                              <div class="ripple-container"></div>
-                            </a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#messages" data-toggle="tab">
-                              <i class="material-icons">code</i> Website
-                              <div class="ripple-container"></div>
-                            </a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#settings" data-toggle="tab">
-                              <i class="material-icons">cloud</i> Server
-                              <div class="ripple-container"></div>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
+
+              <!-- Area Chart -->
+              <div class="col-xl-12 col-lg-12">
+                <div class="card shadow mb-4 h-100">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h4 class="m-0 font-weight-bold text-primary">Order Generated (Year : <?php echo $year ?>)</h4>
+                    <!-- <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div> -->
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body h-100">
+                    <div class="chart-area" style="height: 300px;">
+                      <canvas id="myAreaChart"></canvas>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <!-- Pie Chart -->
+              <!-- <div class="col-xl-4 col-lg-5">
+                <div class="card shadow mb-4 h-100">
+                  
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Lead Generation<br>(Month :</h6>
+                    <a href="monthReport.php" class="btn btn-outline-primary btn-sm">View Report</a>
+                  
+                  </div>
+               
                   <div class="card-body">
-                    <div class="tab-content">
-                      <div class="tab-pane active" id="profile">
-                        <table class="table">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" checked>
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
-                              </td>
-                              <td>Sign contract for "What are conference organizers afraid of?"</td>
-                              <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="">
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
-                              </td>
-                              <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                              <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="">
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
-                              </td>
-                              <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                              </td>
-                              <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" checked>
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
-                              </td>
-                              <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                              <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="tab-pane" id="messages">
-                        <table class="table">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" checked>
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
-                              </td>
-                              <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                              </td>
-                              <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="">
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
-                              </td>
-                              <td>Sign contract for "What are conference organizers afraid of?"</td>
-                              <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="tab-pane" id="settings">
-                        <table class="table">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="">
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
-                              </td>
-                              <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                              <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" checked>
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
-                              </td>
-                              <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                              </td>
-                              <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" checked>
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
-                              </td>
-                              <td>Sign contract for "What are conference organizers afraid of?"</td>
-                              <td class="td-actions text-right">
-                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                  <i class="material-icons">close</i>
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
+                    <div class="chart-pie pt-4 pb-2">
+                      <canvas id="myPieChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center small">
+                      <span class="mr-2">
+                        <i class="fas fa-circle text-primary"></i> Direct
+                      </span>
+                      <span class="mr-2">
+                        <i class="fas fa-circle text-success"></i> Social Media
+                      </span>
+                      <span class="mr-2">
+                        <i class="fas fa-circle text-info"></i> Referral
+                      </span>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-lg-6 col-md-12">
-                <div class="card">
-                  <div class="card-header card-header-warning">
-                    <h4 class="card-title">Employees Stats</h4>
-                    <p class="card-category">New employees on 15th September, 2016</p>
-                  </div>
-                  <div class="card-body table-responsive">
-                    <table class="table table-hover">
-                      <thead class="text-warning">
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Salary</th>
-                        <th>Country</th>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>Dakota Rice</td>
-                          <td>$36,738</td>
-                          <td>Niger</td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Minerva Hooper</td>
-                          <td>$23,789</td>
-                          <td>Curaçao</td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>Sage Rodriguez</td>
-                          <td>$56,142</td>
-                          <td>Netherlands</td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>Philip Chaney</td>
-                          <td>$38,735</td>
-                          <td>Korea, South</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+              </div>  -->
             </div>
+            <!-- Chart ends here -->
+
           </div>
         </div>
-        <footer class="footer">
-          <div class="container-fluid">
-            <nav class="float-left">
-              <ul>
-                <li>
-                  <a href="https://www.creative-tim.com">
-                    Creative Tim
-                  </a>
-                </li>
-                <li>
-                  <a href="https://creative-tim.com/presentation">
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a href="http://blog.creative-tim.com">
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.creative-tim.com/license">
-                    Licenses
-                  </a>
-                </li>
-              </ul>
-            </nav>
-            <div class="copyright float-right">
-              &copy;
-              <script>
-                document.write(new Date().getFullYear())
-              </script>, made with <i class="material-icons">favorite</i> by
-              <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-            </div>
-          </div>
-        </footer>
+        <?php
+        include('components/footer.php')
+        ?>
       </div>
     </div>
-    <div class="fixed-plugin">
-      <div class="dropdown show-dropdown">
-        <a href="#" data-toggle="dropdown">
-          <i class="fa fa-cog fa-2x"> </i>
-        </a>
-        <ul class="dropdown-menu">
-          <li class="header-title"> Sidebar Filters</li>
-          <li class="adjustments-line">
-            <a href="javascript:void(0)" class="switch-trigger active-color">
-              <div class="badge-colors ml-auto mr-auto">
-                <span class="badge filter badge-purple" data-color="purple"></span>
-                <span class="badge filter badge-azure" data-color="azure"></span>
-                <span class="badge filter badge-green" data-color="green"></span>
-                <span class="badge filter badge-warning" data-color="orange"></span>
-                <span class="badge filter badge-danger" data-color="danger"></span>
-                <span class="badge filter badge-rose active" data-color="rose"></span>
-              </div>
-              <div class="clearfix"></div>
-            </a>
-          </li>
-          <li class="header-title">Images</li>
-          <li class="active">
-            <a class="img-holder switch-trigger" href="javascript:void(0)">
-              <img src="  assets/img/sidebar-1.jpg" alt="">
-            </a>
-          </li>
-          <li>
-            <a class="img-holder switch-trigger" href="javascript:void(0)">
-              <img src="  assets/img/sidebar-2.jpg" alt="">
-            </a>
-          </li>
-          <li>
-            <a class="img-holder switch-trigger" href="javascript:void(0)">
-              <img src="  assets/img/sidebar-3.jpg" alt="">
-            </a>
-          </li>
-          <li>
-            <a class="img-holder switch-trigger" href="javascript:void(0)">
-              <img src="  assets/img/sidebar-4.jpg" alt="">
-            </a>
-          </li>
-          <li class="button-container">
-            <a href="https://www.creative-tim.com/product/material-dashboard" target="_blank" class="btn btn-primary btn-block">Free Download</a>
-          </li>
-          <!-- <li class="header-title">Want more components?</li>
-            <li class="button-container">
-                <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
-                  Get the pro version
-                </a>
-            </li> -->
-          <li class="button-container">
-            <a href="https://demos.creative-tim.com/material-dashboard/docs/2.1/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block">
-              View Documentation
-            </a>
-          </li>
-          <li class="button-container github-star">
-            <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
-          </li>
-          <li class="header-title">Thank you for 95 shares!</li>
-          <li class="button-container text-center">
-            <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45</button>
-            <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot; 50</button>
-            <br>
-            <br>
-          </li>
-        </ul>
-      </div>
-    </div>
+
     <!--   Core JS Files   -->
     <script src="  assets/js/core/jquery.min.js"></script>
     <script src="  assets/js/core/popper.min.js"></script>
@@ -835,6 +581,141 @@ if (isset($_SESSION['AUID'])) {
 
       });
     </script>
+
+
+    <!-- Chart JS javascript -->
+    <script src="js/demo/chart-area-demo.js"></script>
+
+    <script src="js/demo/chart-pie-demo.js"></script>
+
+    <!-- Charts Dashboard (line) -->
+    <script type="text/javascript">
+      var ctx = document.getElementById("myAreaChart");
+      var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+          datasets: [{
+            label: "Order Generated",
+            lineTension: 0.3,
+            backgroundColor: "rgba(78, 115, 223, 0.05)",
+            borderColor: "rgba(78, 115, 223, 1)",
+            pointRadius: 3,
+            pointBackgroundColor: "rgba(78, 115, 223, 1)",
+            pointBorderColor: "rgba(78, 115, 223, 1)",
+            pointHoverRadius: 3,
+            pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+            pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+            pointHitRadius: 10,
+            pointBorderWidth: 2,
+            data: <?php echo json_encode($json); ?>,
+          }],
+        },
+        options: {
+          maintainAspectRatio: false,
+          layout: {
+            padding: {
+              left: 10,
+              right: 25,
+              top: 25,
+              bottom: 0
+            }
+          },
+          scales: {
+            xAxes: [{
+              time: {
+                unit: 'date'
+              },
+              gridLines: {
+                display: true,
+                drawBorder: false
+              },
+              ticks: {
+                maxTicksLimit: 6
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                maxTicksLimit: 6,
+                padding: 10,
+
+                // Include a dollar sign in the ticks
+                // callback: function(value, index, values) {
+                //   return '$' + number_format(value);
+                // }
+              },
+              gridLines: {
+                color: "rgb(234, 236, 244)",
+                zeroLineColor: "rgb(234, 236, 244)",
+                drawBorder: false,
+                borderDash: [2],
+                zeroLineBorderDash: [2]
+              }
+            }],
+          },
+          legend: {
+            display: false
+          },
+          tooltips: {
+            backgroundColor: "rgb(255,255,255)",
+            bodyFontColor: "#858796",
+            titleMarginBottom: 10,
+            titleFontColor: '#6e707e',
+            titleFontSize: 14,
+            borderColor: '#dddfeb',
+            borderWidth: 1,
+            xPadding: 15,
+            yPadding: 15,
+            displayColors: false,
+            intersect: false,
+            mode: 'index',
+            caretPadding: 10,
+            callbacks: {
+              label: function(tooltipItem, chart) {
+                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
+              }
+            }
+          }
+        }
+      });
+    </script>
+
+    <!-- <script>
+      var ctx = document.getElementById("myPieChart");
+      var myPieChart = new Chart(ctx, {
+        type: 'polarArea',
+        data: {
+          // labels: ["Direct", "Social Media", "Referral"],
+          datasets: [{
+            data: (12, 14, 15),
+            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+            hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+            hoverBorderColor: "rgba(234, 236, 244, 1)",
+          }],
+        },
+        options: {
+          maintainAspectRatio: false,
+          tooltips: {
+            backgroundColor: "rgb(255,255,255)",
+            bodyFontColor: "#858796",
+            borderColor: '#dddfeb',
+            borderWidth: 1,
+            xPadding: 15,
+            yPadding: 15,
+            displayColors: false,
+            caretPadding: 10,
+          },
+          legend: {
+            display: false
+          },
+          cutoutPercentage: 80,
+        },
+      });
+    </script> -->
+
+
+
   </body>
 
   </html>

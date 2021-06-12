@@ -9,7 +9,8 @@ if (isset($_POST['submit'])) {
     $result2 = mysqli_query($con, $query);
     if ($row = mysqli_fetch_assoc($result2)) {
         $_SESSION['AUID'] = $row['AUID'];
-        header("location:customer.php");
+        $_SESSION['APass'] = $row['Passowrd'];
+        header("location:dashboard.php");
     } else {
         header("location:index.php?invalid=0");
     }

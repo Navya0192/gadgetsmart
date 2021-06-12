@@ -158,7 +158,7 @@ if (isset($_SESSION['AUID'])) {
                                                                 <?php echo $row['towards'] ?>
                                                             </td>
                                                             <td>
-                                                                ₹<?php echo $row['amount'] ?>
+                                                                ₹<?php echo number_format($row['amount']) ?>
                                                             </td>
                                                             <td>
                                                                 <?php echo $row['gDate'] ?>

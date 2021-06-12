@@ -9,6 +9,7 @@ if (isset($_SESSION['AUID'])) {
     $pcompany = $_POST['pcompany'];
     $pram = $_POST['pram'];
     $pstorage = $_POST['pstorage'];
+    $pgst = $_POST['pgst'];
 
     $name = $_FILES['file']['name'];
     $name1 = "ProductImg/" . $name . "";
@@ -22,8 +23,8 @@ if (isset($_SESSION['AUID'])) {
       if (in_array($imageFileType, $extensions_arr)) {
         if (move_uploaded_file($_FILES['file']['tmp_name'], $target_dir . $name)) {
           include('db.php');
-          $sql22 = "INSERT INTO `stock_master`(`PUID`, `Name`, `Imagepath`, `price`, `type`, `quantity`, `companyid`,`Ram`, `Storage`) 
-        VALUES (UUID(),'" . $pname . "','" . $name1 . "','" . $pprice . "','" . $ptype . "','" . $pquantity . "','" . $pcompany . "','" . $pram . "','" . $pstorage . "')";
+          $sql22 = "INSERT INTO `stock_master`(`PUID`, `Name`, `Imagepath`, `price`, `type`, `quantity`, `companyid`,`Ram`, `Storage`,`GST`) 
+        VALUES (UUID(),'" . $pname . "','" . $name1 . "','" . $pprice . "','" . $ptype . "','" . $pquantity . "','" . $pcompany . "','" . $pram . "','" . $pstorage . "','".$pgst."')";
           if (mysqli_query($con, $sql22)) {
             header("location:stocks.php?success=0");
           } else {
@@ -113,29 +114,29 @@ if (isset($_SESSION['AUID'])) {
               </a>
             </li>
             <li class="nav-item active  ">
-            <a class="nav-link" href="stocks.php">
-              <i class="material-icons">loyalty</i>
-              <p><b>Stock</b></p>
-            </a>
-          </li>
+              <a class="nav-link" href="stocks.php">
+                <i class="material-icons">loyalty</i>
+                <p><b>Stock</b></p>
+              </a>
+            </li>
             <li class="nav-item   ">
-            <a class="nav-link" href="order.php">
-              <i class="material-icons">list</i>
-              <p><b>Order</b></p>
-            </a>
-          </li>
-          <li class="nav-item   ">
-            <a class="nav-link" href="delivery.php">
-              <i class="material-icons">upcoming</i>
-              <p><b>Delivery</b></p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="payment.php">
-              <i class="material-icons">payments</i>
-              <p><b>Payments</b></p>
-            </a>
-          </li>
+              <a class="nav-link" href="order.php">
+                <i class="material-icons">list</i>
+                <p><b>Order</b></p>
+              </a>
+            </li>
+            <li class="nav-item   ">
+              <a class="nav-link" href="delivery.php">
+                <i class="material-icons">upcoming</i>
+                <p><b>Delivery</b></p>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="payment.php">
+                <i class="material-icons">payments</i>
+                <p><b>Payments</b></p>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -241,7 +242,7 @@ if (isset($_SESSION['AUID'])) {
                                       <option>3TB</option>
                                       <option>4TB</option>
                                       <option>5TB</option>
-                                    </td>
+                                  </td>
                                 </tr>
                                 <tr>
                                   <td colspan="3">&nbsp;</td>
@@ -250,6 +251,21 @@ if (isset($_SESSION['AUID'])) {
                                   <td>Product Price </td>
                                   <td>&nbsp;:&nbsp;</td>
                                   <td><input type="text" name="pprice"></td>
+                                </tr>
+                                <tr>
+                                  <td colspan="3">&nbsp;</td>
+                                </tr>
+
+                                <tr>
+                                  <td>GST %</td>
+                                  <td>&nbsp;:&nbsp;</td>
+                                  <td><select class="form-control" required name="pgst">
+                                      <option>5</option>
+                                      <option>12</option>
+                                      <option>18</option>
+                                      <option>28</option>
+
+                                  </td>
                                 </tr>
                                 <tr>
                                   <td colspan="3">&nbsp;</td>
@@ -272,7 +288,7 @@ if (isset($_SESSION['AUID'])) {
                                       <option>Tablets</option>
                                       <option>Accessories</option>
                                       <option>Other</option>
-                                      
+
                                   </td>
                                 </tr>
                                 <tr>

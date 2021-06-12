@@ -1,6 +1,23 @@
 <?php
 session_start();
 if (isset($_SESSION['AUID'])) {
+    $aPassword =  $_SESSION['APass'];
+
+    if (isset($_POST['passSubmit'])) {
+        $currentPassoword = $_POST['current_password'];
+        $newPassoword = $_POST['password'];
+        $confirmPassoword = $_POST['confirm_password'];
+
+        if ($aPassword == $currentPassoword) {
+            include('db.php');
+            $sql5 = "UPDATE `admin_master` SET `Passowrd`='" . $confirmPassoword . "' where `AUID` = '" . $_SESSION['AUID'] . "'";
+            if (mysqli_query($con, $sql5)) {
+                header("location:logoutSession.php?PassChng=0");
+            }
+        } else {
+            header("location:settings.php?PassIncr=0");
+        }
+    }
 
 
 ?>
@@ -98,19 +115,97 @@ if (isset($_SESSION['AUID'])) {
                 </nav>
                 <!-- End Navbar -->
                 <div class="content">
+                    <?php
+                    if (isset($_GET['PassChng'])) {
+                    ?>
+                        <br>&nbsp;
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Password Changed Successfully!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                    if (isset($_GET['PassIncr'])) {
+                    ?>
+                        <br>&nbsp;
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>There was an error changing password...<br>Please try again later!</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    <?php
+                    }
+                    ?>
                     <div class="container-fluid" style="margin-top:50px ;">
-                        <div class="row row-cols-1 row-cols-md-1 g-4">
+                        <div class="row row-cols-1 row-cols-md-1 g-2">
                             <div class="col-md-6 mx-auto">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title font-weight-bold text-dark" id="exampleModalLabel">Ready to Leave?</h3>
+                                <div class="card h-100 shadow">
+                                    <div class=" card-header d-sm-flex align-items-center justify-content-between mb-1 ">
+                                        <h2 class="m-0 font-weight-bold " style="color: black;"><u>Change Password</u></h2>
+
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Select "Logout" below if you are ready to end your current session.</h5>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button class="btn btn-dark" type="button" data-dismiss="modal">Cancel</button>
-                                        <a class="btn btn-danger" href="logoutSession.php">Logout</a>
+                                        <form class="needs-validation" novalidate method="POST">
+
+                                            <div class="form-row">
+                                                <div class="col-md-12 mb-3">
+                                                    <label for="validationCustom03" class="font-weight-bold" style="color: black;font-size: large;">Current Password</label>
+                                                    <input type="password" class="form-control" id="validationCustom03" name="current_password" placeholder="Current Password" required>
+                                                    <div class="invalid-feedback">
+                                                        Please Current Password
+                                                    </div>
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="validationCustom01" class="font-weight-bold" style="color: black;font-size: large">New Password</label>
+                                                    <input type="password" class="form-control" id="password" name="password" placeholder="New Password" required>
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Please enter New Password
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="validationCustom02" class="font-weight-bold" style="color: black;font-size: large">Confirm Password</label>
+                                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+                                                    <div class="valid-feedback">
+                                                        Looks good!
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        Passwords don't match
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary" type="submit" name="passSubmit" style="font-weight: bolder;float: right;">Change Password</button>
+                                            <p class="font-weight-bold text-danger">Note : Changing password will result in logging out from current session</p>
+                                        </form>
+                                        <script>
+                                            var password = document.getElementById("password"),
+                                                confirm_password = document.getElementById("confirm_password");
+
+                                            function validatePassword() {
+                                                if (password.value != confirm_password.value) {
+                                                    confirm_password.setCustomValidity("Passwords Don't Match");
+
+                                                } else {
+                                                    confirm_password.setCustomValidity('');
+                                                }
+                                            }
+
+                                            password.onchange = validatePassword;
+                                            confirm_password.onkeyup = validatePassword;
+                                        </script>
+
                                     </div>
                                 </div>
                             </div>
