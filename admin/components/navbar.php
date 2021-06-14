@@ -4,7 +4,9 @@
   <span class="navbar-toggler-icon icon-bar"></span>
   <span class="navbar-toggler-icon icon-bar"></span>
 </button>
+
 <div class="collapse navbar-collapse justify-content-end">
+<h4 class="font-weight-bold">Welcome, <?php echo $adminName ?></h4>
   <ul class="navbar-nav">
     <li class="nav-item dropdown">
       <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

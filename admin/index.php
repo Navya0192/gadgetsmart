@@ -9,6 +9,7 @@ if (isset($_POST['submit'])) {
     $result2 = mysqli_query($con, $query);
     if ($row = mysqli_fetch_assoc($result2)) {
         $_SESSION['AUID'] = $row['AUID'];
+        $_SESSION['AdminName'] = $row['Name'];
         $_SESSION['APass'] = $row['Passowrd'];
         header("location:dashboard.php");
     } else {
@@ -33,7 +34,7 @@ if (isset($_POST['submit'])) {
     <link href="assets/css/loginpage.css" rel="stylesheet" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <title>Hello, world!</title>
+    <title>Admin Panel | Login</title>
 </head>
 
 <body style="background-color: blueviolet;">

@@ -2,6 +2,8 @@
 session_start();
 if (isset($_SESSION['AUID'])) {
 
+  
+
   include('db.php');
   $query2 = "SELECT SUM(`quantity`)as sumqty from stock_master";
   $result2 = mysqli_query($con, $query2);
@@ -287,6 +289,15 @@ FROM `order_master`";
                 </div>
               </div>
             </div> -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4 ">
+              <h1 class="h3 mb-0 text-dark" style="font-family: Orelega One;font-size: 45px;"></h1>
+              <?php $monthname = date("F"); ?>
+              <a href="report.php" class="d-none d-sm-inline-block btn  btn-primary shadow-sm font-weight-bold " style="float: right;"><i class="fas fa-chart-bar fa-lg text-black-50"></i>
+                &nbsp;Generate Month Report&nbsp;(<?php echo $monthName ?>)
+              </a>
+            </div>
+
+
 
             <!-- Charts on Dashboard -->
             <div class="row">
