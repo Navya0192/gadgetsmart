@@ -4,9 +4,17 @@ session_start();
 if (isset($_SESSION['cuname'])) {
   $displayContent = "block";
   $displayContent1 = "none";
+  $contentBlock = " ";
+  $custEmail = $_SESSION['email'];
+  $custMobile = $_SESSION['phone'];
+  $custName = $_SESSION['name'];
 } else {
   $displayContent = "none";
   $displayContent1 = "block";
+  $contentBlock = "disabled";
+  $custEmail = "abc";
+  $custMobile = "abc";
+  $custName = "abc";
 }
 
 
@@ -63,73 +71,34 @@ if (isset($_SESSION['cuname'])) {
     <div class="container d-flex justify-content-between align-items-center">
 
       <div class="logo">
-        <h1><a href="index.html" style="color: rgb(255, 255, 255);">GADGET SMART</a></h1>
+        <h1><a href="index.php" style="color: rgb(255, 255, 255);">GADGET SMART</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
       <form class="d-flex" method="GET" action="search.php">
-        <input class="form-control me-2" type="search"  name="s" placeholder="Search Product" aria-label="Search">
-        <button class="btn btn-light fw-bolder" type="submit" >Search</button>
+        <input class="form-control me-2" type="search" name="s" placeholder="Search Product" aria-label="Search">
+        <button class="btn btn-light fw-bolder" type="submit">Search</button>
       </form>
-     <!-- navigation bar -->
+      <!-- navigation bar -->
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="index.html" style="font-weight: bolder;"><span>HOME</span></a></li>
-          <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>PRODUCTS</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Mobiles</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="mi.html">Mi</a></li>
-                  <li><a href="samsung.html">Samsung</a></li>
-                  <li><a href="vivo.html">Vivo</a></li>
-                  <li><a href="oppo.html">Oppo</a></li>
-                  <li><a href="oneplus.html">Oneplus</a></li>
+          <li><a href="index.php" style="font-weight: bolder;"><span>HOME</span></a></li>
 
-                </ul>
-              </li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Laptops</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="hp.html">HP</a></li>
-                  <li><a href="asusdell.html">Dell</a></li>
-                  <li><a href="lenovo.html">Lenovo</a></li>
-                  <li><a href="acer.html">Acer</a></li>
-                  <li><a href="asusdell.html">Asus</a></li>
-                  <li><a href="mi.html">Mi</a></li>
-
-                </ul>
-              </li>
-
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>TV & Tablets</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-
-                  <li><a href="mi.html">Mi</a></li>
-                  <li><a href="oneplus.html">Oneplus</a></li>
-                  <li><a href="samsung.html">SAMSUNG</a></li>
-
-                </ul>
-              </li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Accessories</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-
-                  <li><a href="#">earphones</a></li>
-
-                </ul>
-            </ul>
-          </li>
-
+          <li><a href="contact.html" style="font-weight: bolder;">Book Appointment</a></li>
+          <li><a href="contact.php" style="font-weight: bolder;">Contact US</a></li>
           <!--<li><a href="services.html" style="font-weight: bolder;">SERVICES</a></li>-->
-          <li class="dropdown"><a href="pricing.html" style="font-weight: bolder;"><span>ACCOUNT</span>
+          <li class="dropdown" style="display:<?php echo $displayContent ?>"><a href="" style="font-weight: bolder;"><span>ACCOUNT</span>
               <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Order</span></a></li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Payment </span></a></li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Profile</span></a></li>
-             
+              <li class="dropdown"><a href="Custorder.php" style="font-weight: bolder;"><span>Order</span></a></li>
+              <li class="dropdown"><a href="Custpay.php" style="font-weight: bolder;"><span>Payment </span></a></li>
+              <li class="dropdown"><a href="Custprofile.php" style="font-weight: bolder;"><span>Profile</span></a></li>
+
             </ul>
           </li>
 
 
-          <li><a href="contact.html" style="font-weight: bolder;">CONTACT</a></li>
+
           <li style="display:<?php echo $displayContent ?>"><a href="logout.php" class="text-danger" style="font-weight: bolder;">LOGOUT</a></li>
           <li style="display:<?php echo $displayContent1 ?>"><a href="login/index.php" class="text-light" style="font-weight: bolder;">LOGIN</a></li>
         </ul>
@@ -227,7 +196,7 @@ if (isset($_SESSION['cuname'])) {
               <div class="row row-cols-1 row-cols-md-5 g-4">
                 <?php
                 include('db.php');
-                $query15 = "SELECT * FROM `stock_master` WHERE quantity > 0 LIMIT 5";
+                $query15 = "SELECT * FROM `stock_master` WHERE quantity > 0 ORDER by `stockNum` DESC limit 5";
                 $result15 = mysqli_query($con, $query15);
                 while ($row = mysqli_fetch_assoc($result15)) {
                 ?>
@@ -247,9 +216,9 @@ if (isset($_SESSION['cuname'])) {
                           </div>
                         </div>
                       </div>
-                      <h5 class="card-title text-center" style="color: black;font-family: Arial, Helvetica, sans-serif;"><b style="color: #7B1FA2;">Price :</b>₹<?php echo $row['price'] ?></h5>
+                      <h5 class="card-title text-center" style="color: black;font-family: Arial, Helvetica, sans-serif;"><b style="color: #7B1FA2;">Price :</b>₹<?php echo number_format($row['price']) ?></h5>
                       <div class="d-grid gap-2 p-3" style="border-top: 2px solid grey">
-                        <button class="btn btn-dark" type="button">View</button>
+                        <button type="button" class="btn btn-dark" value="<?php echo $row['price'] ?>" id="<?php echo $row['PUID'] ?>" onClick="reply_click(this.value,this.id)" style="float: right;" <?php echo $contentBlock  ?>><b>Buy Directly</b></button>
                       </div>
                     </div>
                   </div>
@@ -297,65 +266,6 @@ if (isset($_SESSION['cuname'])) {
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card" style="background-color: #f1f1f1;">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-
-              <div class="row row-cols-1 row-cols-md-2 g-4">
-                <div class="col">
-                  <div class="card" style="background-color: transparent;border-color: transparent;">
-                    <div class="card-body">
-                      <h5 class="card-title" style="color: black;font-size: xx-large;padding-left: 20px;font-family:Noto Serif;">COMPARE
-                      </h5>
-                      <p class="card-text" style="padding-left: 20px;color: black;">Get one that is best for you !</p>
-                      <div class="btn" style="padding-left: 20px;">
-                        <button class="btn btn-dark" type="button"><i class='bx bxs-grid'></i>&nbsp;View More</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card" style="background-color: transparent;border-color: transparent;">
-                    <!-- 
-                    <img src="assets/img/10.jpeg" class="card-img-top" alt="..." style="width: 20%;"> -->
-                    <div class="row row-cols-1 row-cols-md-2 g-4">
-                      <div class="col">
-                        <div class="card" style="background-color: transparent;border-color: transparent;">
-                          <center>
-                            <img src="assets/img/9.jpeg" class="card-img-top" alt="..." style="width: 20%;">
-                            <br><br>
-                            <h6 class="card-title text-center" style="color: black;">Samsung Galexy S20FE</h6>
-                          </center>
-                        </div>
-                      </div>
-                      <div class="col">
-                        <div class="card" style="background-color: transparent;border-color: transparent;">
-                          <center>
-                            <img src="assets/img/1.jpeg" class="card-img-top" alt="..." style="width: 20%;"><br><br>
-                            <h6 class="card-title text-center" style="color: black;">Xiaomi Redmi Note 9 Pro Max</h6>
-                          </center>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                  content. This content is a little bit longer.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- -->
-
     </section>
 
 
@@ -452,6 +362,8 @@ if (isset($_SESSION['cuname'])) {
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <?php include('components/payGateway.php') ?>
 
 </body>
 

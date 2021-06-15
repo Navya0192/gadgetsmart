@@ -9,9 +9,17 @@ use PHPMailer\PHPMailer\Exception;
 if (isset($_SESSION['cuname'])) {
   $displayContent = "block";
   $displayContent1 = "none";
+  $contentBlock = " ";
+  $custEmail = $_SESSION['email'];
+  $custMobile = $_SESSION['phone'];
+  $custName = $_SESSION['name'];
 } else {
   $displayContent = "none";
   $displayContent1 = "block";
+  $contentBlock = "disabled";
+  $custEmail = "abc";
+  $custMobile = "abc";
+  $custName = "abc";
 }
 if (isset($_POST['submit'])) {
   $qname = $_POST['Qname'];
@@ -37,8 +45,8 @@ if (isset($_POST['submit'])) {
     $mail->addAddress('Navyaraj526@gmail.com');       //Add a recipient              //Name is optional
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject =''.$qsubject.'';
-    $mail->Body    = 'Query Generated <br><br><b>Name : </b>'.$qname.'<br><b>Mobile:</b>+91 '.$qmobile.'<br><b>Email : </b>'.$qemail.'<br><b>Message :</b>'.$qmessage.'';
+    $mail->Subject = '' . $qsubject . '';
+    $mail->Body    = 'Query Generated <br><br><b>Name : </b>' . $qname . '<br><b>Mobile:</b>+91 ' . $qmobile . '<br><b>Email : </b>' . $qemail . '<br><b>Message :</b>' . $qmessage . '';
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
@@ -118,63 +126,23 @@ if (isset($_POST['submit'])) {
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="index.html" style="font-weight: bolder;"><span>HOME</span></a></li>
-          <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>PRODUCTS</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Mobiles</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="mi.html">Mi</a></li>
-                  <li><a href="samsung.html">Samsung</a></li>
-                  <li><a href="vivo.html">Vivo</a></li>
-                  <li><a href="oppo.html">Oppo</a></li>
-                  <li><a href="oneplus.html">Oneplus</a></li>
+          <li><a href="index.php" style="font-weight: bolder;"><span>HOME</span></a></li>
 
-                </ul>
-              </li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Laptops</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="hp.html">HP</a></li>
-                  <li><a href="asusdell.html">Dell</a></li>
-                  <li><a href="lenovo.html">Lenovo</a></li>
-                  <li><a href="acer.html">Acer</a></li>
-                  <li><a href="asusdell.html">Asus</a></li>
-                  <li><a href="mi.html">Mi</a></li>
-
-                </ul>
-              </li>
-
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>TV & Tablets</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-
-                  <li><a href="mi.html">Mi</a></li>
-                  <li><a href="oneplus.html">Oneplus</a></li>
-                  <li><a href="samsung.html">SAMSUNG</a></li>
-
-                </ul>
-              </li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Accessories</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-
-                  <li><a href="#">earphones</a></li>
-
-                </ul>
-            </ul>
-          </li>
-
-          <li><a href="services.html" style="font-weight: bolder;">SERVICES</a></li>
-          <li class="dropdown"><a href="pricing.html" style="font-weight: bolder;"><span>PRICE RANGE</span>
+          <li><a href="contact.html" style="font-weight: bolder;">Book Appointment</a></li>
+          <li><a href="contact.php" style="font-weight: bolder;">Contact US</a></li>
+          <!--<li><a href="services.html" style="font-weight: bolder;">SERVICES</a></li>-->
+          <li class="dropdown" style="display:<?php echo $displayContent ?>"><a href="" style="font-weight: bolder;"><span>ACCOUNT</span>
               <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Below ₹ 10,000</span></a></li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 10,000 - ₹ 20,000 </span></a></li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 20,000 - ₹ 30,000</span></a></li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>₹ 30,000 -₹ 40,000</span></a></li>
-              <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Above ₹ 40,000</span></a></li>
+              <li class="dropdown"><a href="Custorder.php" style="font-weight: bolder;"><span>Order</span></a></li>
+              <li class="dropdown"><a href="Custpay.php" style="font-weight: bolder;"><span>Payment </span></a></li>
+              <li class="dropdown"><a href="Custprofile.php" style="font-weight: bolder;"><span>Profile</span></a></li>
+
             </ul>
           </li>
 
 
-          <li><a href="contact.html" style="font-weight: bolder;">CONTACT</a></li>
+
           <li style="display:<?php echo $displayContent ?>"><a href="logout.php" class="text-danger" style="font-weight: bolder;">LOGOUT</a></li>
           <li style="display:<?php echo $displayContent1 ?>"><a href="login/index.php" class="text-light" style="font-weight: bolder;">LOGIN</a></li>
         </ul>
@@ -232,7 +200,7 @@ if (isset($_POST['submit'])) {
         <div class="row">
 
           <div class="col-lg-6 ">
-          
+
             <iframe class="mb-4 mb-lg-0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.5646625022555!2d74.83964871466652!3d12.87137052055258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba35b058cfecc75%3A0xafdfa4846fbdd0a3!2sGadget%20smart!5e0!3m2!1sen!2sin!4v1623143560806!5m2!1sen!2sin" frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe>
 
 

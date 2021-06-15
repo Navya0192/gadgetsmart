@@ -1,0 +1,57 @@
+<div class="col">
+          <div class="card" style="background-color: #f1f1f1;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+
+              <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                  <div class="card" style="background-color: transparent;border-color: transparent;">
+                    <div class="card-body">
+                      <h5 class="card-title" style="color: black;font-size: xx-large;padding-left: 20px;font-family:Noto Serif;">COMPARE
+                      </h5>
+                      <p class="card-text" style="padding-left: 20px;color: black;">Get one that is best for you !</p>
+                      <div class="btn" style="padding-left: 20px;">
+                        <button class="btn btn-dark" type="button"><i class='bx bxs-grid'></i>&nbsp;View More</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card" style="background-color: transparent;border-color: transparent;">
+                    <!-- 
+                    <img src="assets/img/10.jpeg" class="card-img-top" alt="..." style="width: 20%;"> -->
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                      <div class="col">
+                        <div class="card" style="background-color: transparent;border-color: transparent;">
+                          <center>
+                            <img src="assets/img/9.jpeg" class="card-img-top" alt="..." style="width: 20%;">
+                            <br><br>
+                            <h6 class="card-title text-center" style="color: black;">Samsung Galexy S20FE</h6>
+                          </center>
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="card" style="background-color: transparent;border-color: transparent;">
+                          <center>
+                            <img src="assets/img/1.jpeg" class="card-img-top" alt="..." style="width: 20%;"><br><br>
+                            <h6 class="card-title text-center" style="color: black;">Xiaomi Redmi Note 9 Pro Max</h6>
+                          </center>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
+                  content. This content is a little bit longer.</p>
+              </div>
+            </div>
+          </div>
+        </div>

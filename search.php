@@ -85,68 +85,29 @@ $custName ="abc" ;
 
 
                 <nav id="navbar" class="navbar">
-                    <ul>
-                        <li><a href="index.html" style="font-weight: bolder;"><span>HOME</span></a></li>
-                        <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>PRODUCTS</span> <i class="bi bi-chevron-down"></i></a>
-                            <ul>
-                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Mobiles</span> <i class="bi bi-chevron-right"></i></a>
-                                    <ul>
-                                        <li><a href="mi.html">Mi</a></li>
-                                        <li><a href="samsung.html">Samsung</a></li>
-                                        <li><a href="vivo.html">Vivo</a></li>
-                                        <li><a href="oppo.html">Oppo</a></li>
-                                        <li><a href="oneplus.html">Oneplus</a></li>
+                <ul>
+                    <li><a href="index.php" style="font-weight: bolder;"><span>HOME</span></a></li>
+                    
+                    <li><a href="contact.html" style="font-weight: bolder;">Book Appointment</a></li>
+                    <li><a href="contact.php" style="font-weight: bolder;">Contact US</a></li>
+                    <!--<li><a href="services.html" style="font-weight: bolder;">SERVICES</a></li>-->
+                    <li class="dropdown" style="display:<?php echo $displayContent ?>"><a href="" style="font-weight: bolder;"><span>ACCOUNT</span>
+                            <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                        <li class="dropdown"><a href="Custorder.php" style="font-weight: bolder;"><span>Order</span></a></li>
+                            <li class="dropdown"><a href="Custpay.php" style="font-weight: bolder;"><span>Payment </span></a></li>
+                            <li class="dropdown"><a href="Custprofile.php" style="font-weight: bolder;"><span>Profile</span></a></li>
 
-                                    </ul>
-                                </li>
-                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Laptops</span> <i class="bi bi-chevron-right"></i></a>
-                                    <ul>
-                                        <li><a href="hp.html">HP</a></li>
-                                        <li><a href="asusdell.html">Dell</a></li>
-                                        <li><a href="lenovo.html">Lenovo</a></li>
-                                        <li><a href="acer.html">Acer</a></li>
-                                        <li><a href="asusdell.html">Asus</a></li>
-                                        <li><a href="mi.html">Mi</a></li>
-
-                                    </ul>
-                                </li>
-
-                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>TV & Tablets</span> <i class="bi bi-chevron-right"></i></a>
-                                    <ul>
-
-                                        <li><a href="mi.html">Mi</a></li>
-                                        <li><a href="oneplus.html">Oneplus</a></li>
-                                        <li><a href="samsung.html">SAMSUNG</a></li>
-
-                                    </ul>
-                                </li>
-                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Accessories</span> <i class="bi bi-chevron-right"></i></a>
-                                    <ul>
-
-                                        <li><a href="#">earphones</a></li>
-
-                                    </ul>
-                            </ul>
-                        </li>
-
-                        <!--<li><a href="services.html" style="font-weight: bolder;">SERVICES</a></li>-->
-                        <li class="dropdown"><a href="pricing.html" style="font-weight: bolder;"><span>ACCOUNT</span>
-                                <i class="bi bi-chevron-down"></i></a>
-                            <ul>
-                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Order</span></a></li>
-                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Payment </span></a></li>
-                                <li class="dropdown"><a href="#" style="font-weight: bolder;"><span>Profile</span></a></li>
-                             
-                            </ul>
-                        </li>
+                        </ul>
+                    </li>
 
 
-                        <li><a href="contact.html" style="font-weight: bolder;">CONTACT</a></li>
-                        <li style="display:<?php echo $displayContent ?>"><a href="logout.php" class="text-danger" style="font-weight: bolder;">LOGOUT</a></li>
-                        <li style="display:<?php echo $displayContent1 ?>"><a href="login/index.php" class="text-light" style="font-weight: bolder;">LOGIN</a></li>
-                    </ul>
-                    <i class="bi bi-list mobile-nav-toggle"></i>
-                </nav><!-- .navbar -->
+
+                    <li style="display:<?php echo $displayContent ?>"><a href="logout.php" class="text-danger" style="font-weight: bolder;">LOGOUT</a></li>
+                    <li style="display:<?php echo $displayContent1 ?>"><a href="login/index.php" class="text-light" style="font-weight: bolder;">LOGIN</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
 
             </div>
         </header><!-- End Header -->
